@@ -1,0 +1,14 @@
+ci:
+  variables:
+    VITE_API_URL: http://localhost:8080
+  trigger:
+    include:
+      - project: 'todolist-micro-services/pipeline'
+        ref: 'master'
+        file: 'client/react.yml'
+    strategy: depend
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if: $CI_COMMIT_BRANCH == "master"
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_BRANCH == "develop"
