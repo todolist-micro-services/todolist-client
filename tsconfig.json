@@ -19,6 +19,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": false,
     "baseUrl": ".",
     "paths": {
       "@app/*": ["src/client/app/*"],
@@ -29,7 +30,10 @@
       "@core/dto": ["src/todolist-client-core/src/dto/main.ts"],
       "@core/viewModels": ["src/todolist-client-core/src/viewModels/main.ts"],
       "@core/translations/*": ["src/todolist-client-core/src/translations/*"],
-      "@core/utils": ["src/todolist-client-core/src/utils/main.ts"]
+      "@core/utils": ["src/todolist-client-core/src/utils/main.ts"],
+      "@core/core/*": ["src/todolist-client-core/src/core/*"],
+      "@core/reducer/*": ["src/todolist-client-core/src/reducer/*"],
+      "@core/middleware": ["src/todolist-client-core/src/middleware/main.ts"]
     }
   },
   "include": ["src"],

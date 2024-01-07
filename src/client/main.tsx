@@ -7,6 +7,7 @@ import { store } from "@core/utils";
 import App from "@pages/home";
 import reportWebVitals from "./reportWebVitals.ts";
 import "./index.scss";
+import "@app/translations";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

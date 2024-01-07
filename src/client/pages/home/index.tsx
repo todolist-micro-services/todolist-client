@@ -13,10 +13,12 @@ import {
   ModalHeader,
 } from "semantic-ui-react";
 import { toast, Toaster } from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 function App() {
   const [incrementAmount, setIncrementAmount] = useState("2");
   const [open, setOpen] = useState(false);
+  const { t } = useTranslation();
 
   const incrementValue = Number(incrementAmount) || 0;
   const {
@@ -37,6 +39,8 @@ function App() {
       <div>
         <Toaster position="top-right" reverseOrder={true} />
       </div>
+      <h2>{t("title")}</h2>
+      <h2>{t("description")}</h2>
       <div>
         {isRequestPending && <p>pending</p>}
         {isRequestFailure && <p>failure</p>}
