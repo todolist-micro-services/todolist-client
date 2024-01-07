@@ -1,7 +1,8 @@
 import { useState } from "react";
+
+import { useCountUpdate } from "@core/viewModels";
+import { useAppSelector } from "@core/utils";
 import styles from "./index.module.scss";
-import { useCountUpdate } from "../../../todolist-client-core/src/viewModels/counter";
-import { useAppSelector } from "../../../todolist-client-core/src/utils/hook.ts";
 
 function App() {
   const [incrementAmount, setIncrementAmount] = useState("2");

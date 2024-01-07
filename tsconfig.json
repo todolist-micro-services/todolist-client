@@ -26,6 +26,10 @@
       "@scenes/*": ["src/client/scenes/*"],
       "@common/*": ["src/client/common/*"],
       "@components/*": ["src/client/components/*"],
+      "@core/dto": ["src/todolist-client-core/src/dto/main.ts"],
+      "@core/viewModels": ["src/todolist-client-core/src/viewModels/main.ts"],
+      "@core/translations/*": ["src/todolist-client-core/src/translations/*"],
+      "@core/utils": ["src/todolist-client-core/src/utils/main.ts"]
     }
   },
   "include": ["src"],
