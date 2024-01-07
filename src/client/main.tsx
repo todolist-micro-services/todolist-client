@@ -1,10 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "@pages/home";
-import "./index.scss";
 import { Provider } from "react-redux";
-import { store } from "../todolist-client-core/src/utils/store.ts";
+import "semantic-ui-css/semantic.min.css";
+
+import { store } from "@core/utils";
+import App from "@pages/home";
 import reportWebVitals from "./reportWebVitals.ts";
+import "./index.scss";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

@@ -14,11 +14,17 @@
     "@reduxjs/toolkit": "^2.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
     "react-redux": "^9.0.4",
     "sass": "^1.69.5",
+    "semantic-ui-css": "^2.5.0",
+    "semantic-ui-less": "^2.5.0",
+    "semantic-ui-react": "^2.1.5",
     "vite-tsconfig-paths": "^4.2.0"
   },
   "devDependencies": {
+    "@craco/craco": "^7.1.0",
+    "@semantic-ui-react/craco-less": "^3.0.0",
     "@types/jest": "^29.5.11",
     "@types/node": "^20.10.5",
     "@types/react": "^18.2.43",
