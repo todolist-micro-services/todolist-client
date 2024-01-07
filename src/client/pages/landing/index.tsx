@@ -12,15 +12,16 @@ import {
   ModalDescription,
   ModalHeader,
 } from "semantic-ui-react";
-import { toast, Toaster } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { sendErrorMessage } from "@app/errorMessage";
+import { useWrapperContext } from "@app/wrapper/wrapper.tsx";
+import { UseCases } from "@app/wrapper/types.ts";
 
 function Landing() {
   const [incrementAmount, setIncrementAmount] = useState("2");
   const [open, setOpen] = useState(false);
   const { t } = useTranslation();
-
   const incrementValue = Number(incrementAmount) || 0;
   const {
     updateCount,
@@ -30,16 +31,15 @@ function Landing() {
     isRequestSuccess,
   } = useCountUpdate();
   const errorMessage = useAppSelector((state) => state.error);
+  const { pushView } = useWrapperContext();
 
   React.useEffect(() => {
-    isRequestFailure && toast.error(errorMessage["errorMessage"]);
+    isRequestFailure &&
+      sendErrorMessage(errorMessage["errorMessage"] ?? "Unknown error");
   }, [isRequestFailure]);
 
   return (
     <div>
-      <div>
-        <Toaster position="top-right" reverseOrder={true} />
-      </div>
       <h2>{t("title")}</h2>
       <h2>{t("description")}</h2>
       <div>
@@ -57,7 +57,14 @@ function Landing() {
           value={incrementAmount}
           onChange={(e) => setIncrementAmount(e.target.value)}
         />
-        <button className="ui button">Click Here</button>
+        <button
+          className="ui button"
+          onClick={() => {
+            pushView({ useCase: UseCases.Register, data: {} });
+          }}
+        >
+          Click Here
+        </button>
         <Link to={`login`}>login page</Link>
         <button
           className={styles.asyncButton}
