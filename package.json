@@ -19,6 +19,7 @@
     "react-hot-toast": "^2.4.1",
     "react-i18next": "^14.0.0",
     "react-redux": "^9.0.4",
+    "react-router-dom": "^6.21.1",
     "sass": "^1.69.5",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-less": "^2.5.0",
