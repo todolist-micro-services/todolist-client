@@ -1,12 +1,18 @@
+import { Register } from "@pages/login/register";
+import { Login as LoginComponent } from "./login";
 import styles from "./styles.module.scss";
-import { Link } from "react-router-dom";
 
 function Login() {
   return (
     <div className={styles.login}>
-      <p>Login page</p>
-      <Link to={`/`}>landing page</Link>
-      <Link to={`/home`}>home page</Link>
+      <h1>Login page</h1>
+      <div className={styles.forms}>
+        <LoginComponent />
+        <Register />
+      </div>
+      <div />
+      {/*<Link to={`/`}>landing page</Link>*/}
+      {/*<Link to={`/home`}>home page</Link>*/}
     </div>
   );
 }
