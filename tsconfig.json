@@ -27,6 +27,7 @@
       "@scenes/*": ["src/client/scenes/*"],
       "@common/*": ["src/client/common/*"],
       "@components/*": ["src/client/components/*"],
+      "@utils/*": ["src/client/utils/*"],
       "@core/dto": ["src/todolist-client-core/src/dto/main.ts"],
       "@core/viewModels": ["src/todolist-client-core/src/viewModels/main.ts"],
       "@core/translations/*": ["src/todolist-client-core/src/translations/*"],

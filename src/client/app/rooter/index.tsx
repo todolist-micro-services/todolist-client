@@ -5,6 +5,7 @@ import { Error } from "@pages/error";
 import { Login } from "@pages/login";
 import { Home } from "@pages/home";
 import { Settings } from "@pages/settings";
+import styles from "./styles.module.scss";
 
 const publicRouter = createBrowserRouter([
   {
@@ -47,9 +48,13 @@ const privateRouter = createBrowserRouter([
 ]);
 function Rooter() {
   return true ? (
-    <RouterProvider router={publicRouter} />
+    <div className={styles.rooter}>
+      <RouterProvider router={publicRouter} />
+    </div>
   ) : (
-    <RouterProvider router={privateRouter} />
+    <div className={styles.rooter}>
+      <RouterProvider router={privateRouter} />
+    </div>
   );
 }
 

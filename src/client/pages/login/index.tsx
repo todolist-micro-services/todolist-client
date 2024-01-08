@@ -6,6 +6,7 @@ function Login() {
     <div className={styles.login}>
       <p>Login page</p>
       <Link to={`/`}>landing page</Link>
+      <Link to={`/home`}>home page</Link>
     </div>
   );
 }
