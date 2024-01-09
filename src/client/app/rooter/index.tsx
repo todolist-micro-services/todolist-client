@@ -1,3 +1,4 @@
+import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { Landing } from "@pages/landing";
@@ -7,7 +8,6 @@ import { Home } from "@pages/home";
 import { Settings } from "@pages/settings";
 import styles from "./styles.module.scss";
 import { useLogin } from "@core/viewModels";
-import React from "react";
 import { removeSession, retrieveSession, setSession } from "@utils/sessions.ts";
 
 const publicRouter = createBrowserRouter([
@@ -45,18 +45,17 @@ function Rooter() {
   const { isRequestSuccess, token } = useLogin();
 
   React.useEffect(() => {
-    isRequestSuccess && removeSession("todolist-access-token");
-    isRequestSuccess &&
+    if (isRequestSuccess) {
+      removeSession("todolist-access-token");
       setSession("todolist-access-token", token.token, new Date("2042"));
+    }
   }, [isRequestSuccess]);
 
-  return !retrieveSession("todolist-access-token") ? (
+  const isAuthenticated = retrieveSession("todolist-access-token");
+
+  return (
     <div className={styles.rooter}>
-      <RouterProvider router={publicRouter} />
-    </div>
-  ) : (
-    <div className={styles.rooter}>
-      <RouterProvider router={privateRouter} />
+      <RouterProvider router={isAuthenticated ? privateRouter : publicRouter} />
     </div>
   );
 }

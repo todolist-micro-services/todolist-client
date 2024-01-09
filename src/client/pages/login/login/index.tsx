@@ -1,22 +1,20 @@
-import styles from "./styles.module.scss";
-import { Button, Input } from "semantic-ui-react";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button, Input } from "semantic-ui-react";
+
 import { useLogin } from "@core/viewModels";
-import { removeSession, retrieveSession, setSession } from "@utils/sessions.ts";
+import styles from "./styles.module.scss";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { isRequestSuccess, isRequestPending, isRequestFailure, login, token } =
-    useLogin();
+  const { isRequestSuccess, login } = useLogin();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     isRequestSuccess && console.log("coucou");
-    isRequestSuccess &&
-      setSession("todolist-access-token", token.token, new Date("2042"));
-    isRequestSuccess && console.log(retrieveSession("todolist-access-token"));
-    isRequestSuccess && removeSession("todolist-access-token");
-    isRequestSuccess && console.log(retrieveSession("todolist-access-token"));
+    isRequestSuccess && navigate("/home");
+    isRequestSuccess && window.location.reload();
   }, [isRequestSuccess]);
 
   const loginCta = () => {
@@ -36,11 +34,6 @@ function Login() {
         onChange={(e) => setPassword(e.target.value)}
       />
       <Button content={"Submit"} onClick={() => loginCta()} />
-      {isRequestSuccess && <p>success</p>}
-      {isRequestFailure && <p>failure</p>}
-      {isRequestPending && <p>pending</p>}
-      {token.token}
-      {token.expiration}
     </div>
   );
 }
