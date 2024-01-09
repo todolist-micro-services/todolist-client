@@ -6,6 +6,9 @@ import { Login } from "@pages/login";
 import { Home } from "@pages/home";
 import { Settings } from "@pages/settings";
 import styles from "./styles.module.scss";
+import { useLogin } from "@core/viewModels";
+import React from "react";
+import { removeSession, retrieveSession, setSession } from "@utils/sessions.ts";
 
 const publicRouter = createBrowserRouter([
   {
@@ -16,14 +19,6 @@ const publicRouter = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
-  },
-  {
-    path: "/home",
-    element: <Home />,
-  },
-  {
-    path: "/settings",
-    element: <Settings />,
   },
 ]);
 
@@ -47,7 +42,15 @@ const privateRouter = createBrowserRouter([
   },
 ]);
 function Rooter() {
-  return true ? (
+  const { isRequestSuccess, token } = useLogin();
+
+  React.useEffect(() => {
+    isRequestSuccess && removeSession("todolist-access-token");
+    isRequestSuccess &&
+      setSession("todolist-access-token", token.token, new Date("2042"));
+  }, [isRequestSuccess]);
+
+  return !retrieveSession("todolist-access-token") ? (
     <div className={styles.rooter}>
       <RouterProvider router={publicRouter} />
     </div>

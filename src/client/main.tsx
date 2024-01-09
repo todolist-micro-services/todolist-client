@@ -8,6 +8,7 @@ import "@app/translations";
 import { Banner } from "@common/banner";
 import { WrapperContextProvider } from "@app/wrapper/wrapper.tsx";
 import { Wrapper } from "@app/wrapper";
+import { Error } from "@app/errorMessage/error.tsx";
 import reportWebVitals from "./reportWebVitals.ts";
 import "./index.scss";
 
@@ -15,8 +16,9 @@ setProxy(import.meta.env.VITE_API_URL);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
-    <Banner />
     <WrapperContextProvider>
+      <Banner />
+      <Error />
       <Wrapper />
       <Rooter />
     </WrapperContextProvider>
