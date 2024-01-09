@@ -1,12 +1,22 @@
-import { SideBar } from "@components/sideBar";
-import styles from "./styles.module.scss";
+import { useEffect, useState } from "react";
 import { Button, ButtonGroup, ButtonOr } from "semantic-ui-react";
-import { useState } from "react";
+
+import { SideBar } from "@components/sideBar";
+import { retrieveSession } from "@utils/sessions.ts";
+import { sessionName } from "@utils/constant.ts";
+import { useUserRetrieval } from "@core/viewModels";
+import styles from "./styles.module.scss";
 
 function Home() {
   const [displayTask, setDisplayTask] = useState(true);
   const [displayTimeline, setDisplayTimeline] = useState(false);
   const [displayGlobalTimeline, setDisplayGlobalTimeline] = useState(false);
+  const { retrieveUser, isRequestSuccess } = useUserRetrieval();
+
+  useEffect(() => {
+    !isRequestSuccess && retrieveUser(retrieveSession(sessionName));
+  }, []);
+
   return (
     <div className={styles.home}>
       <SideBar

@@ -9,6 +9,7 @@ import { Settings } from "@pages/settings";
 import styles from "./styles.module.scss";
 import { useLogin, useRegister } from "@core/viewModels";
 import { removeSession, retrieveSession, setSession } from "@utils/sessions.ts";
+import { sessionName } from "@utils/constant.ts";
 
 const publicRouter = createBrowserRouter([
   {
@@ -58,21 +59,21 @@ function Rooter() {
   React.useEffect(() => {
     if (loginSuccess) {
       createSession(
-        "todolist-access-token",
+        sessionName,
         loginToken.token,
         new Date(loginToken.expiration)
       );
     }
     if (registerSuccess) {
       createSession(
-        "todolist-access-token",
+        sessionName,
         registerToken.token,
         new Date(registerToken.expiration)
       );
     }
   }, [loginSuccess, registerSuccess]);
 
-  const isAuthenticated = retrieveSession("todolist-access-token");
+  const isAuthenticated = retrieveSession(sessionName);
 
   return (
     <div className={styles.rooter}>
