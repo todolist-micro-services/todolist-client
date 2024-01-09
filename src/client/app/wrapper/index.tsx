@@ -10,8 +10,8 @@ function Wrapper() {
   };
 
   const modals = {
-    [UseCases.Register]: (_: ViewModels[UseCases.Register]) => (
-      <Register close={close} />
+    [UseCases.Register]: (data: ViewModels[UseCases.Register]) => (
+      <Register {...data} close={close} />
     ),
   };
 

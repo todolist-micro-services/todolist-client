@@ -7,7 +7,7 @@ import { Login } from "@pages/login";
 import { Home } from "@pages/home";
 import { Settings } from "@pages/settings";
 import styles from "./styles.module.scss";
-import { useLogin } from "@core/viewModels";
+import { useLogin, useRegister } from "@core/viewModels";
 import { removeSession, retrieveSession, setSession } from "@utils/sessions.ts";
 
 const publicRouter = createBrowserRouter([
@@ -42,14 +42,35 @@ const privateRouter = createBrowserRouter([
   },
 ]);
 function Rooter() {
-  const { isRequestSuccess, token } = useLogin();
+  const { isRequestSuccess: loginSuccess, token: loginToken } = useLogin();
+  const { isRequestSuccess: registerSuccess, token: registerToken } =
+    useRegister();
+
+  const createSession = (
+    sessionName: string,
+    token: string,
+    expirationDate: Date
+  ) => {
+    removeSession(sessionName);
+    setSession(sessionName, token, expirationDate);
+  };
 
   React.useEffect(() => {
-    if (isRequestSuccess) {
-      removeSession("todolist-access-token");
-      setSession("todolist-access-token", token.token, new Date("2042"));
+    if (loginSuccess) {
+      createSession(
+        "todolist-access-token",
+        loginToken.token,
+        new Date(loginToken.expiration)
+      );
     }
-  }, [isRequestSuccess]);
+    if (registerSuccess) {
+      createSession(
+        "todolist-access-token",
+        registerToken.token,
+        new Date(registerToken.expiration)
+      );
+    }
+  }, [loginSuccess, registerSuccess]);
 
   const isAuthenticated = retrieveSession("todolist-access-token");
 

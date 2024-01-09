@@ -12,7 +12,6 @@ function Login() {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    isRequestSuccess && console.log("coucou");
     isRequestSuccess && navigate("/home");
     isRequestSuccess && window.location.reload();
   }, [isRequestSuccess]);
