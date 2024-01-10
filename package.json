@@ -25,7 +25,8 @@
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-less": "^2.5.0",
     "semantic-ui-react": "^2.1.5",
-    "vite-tsconfig-paths": "^4.2.0"
+    "vite-tsconfig-paths": "^4.2.0",
+    "axios": "^1.6.5"
   },
   "devDependencies": {
     "@craco/craco": "^7.1.0",
