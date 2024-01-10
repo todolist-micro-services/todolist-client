@@ -7,15 +7,8 @@ export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   server: {
     open: false,
-    port: +process.env.VITE_PORT,
+    port: process.env.VITE_PORT ? +process.env.VITE_PORT : 3000,
     host: true,
-    proxy: {
-      "/api": {
-        target: process.env.VITE_API_URL,
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
-      },
-    },
   },
   envDir: "../../.env",
 });
