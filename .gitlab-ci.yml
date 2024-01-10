@@ -1,8 +1,6 @@
 ci:
   variables:
     VITE_API_URL: http://localhost:8080
-  before_script:
-    - git submodule update --init --recursive
   trigger:
     include:
       - project: 'todolist-micro-services/pipeline'
