@@ -1,0 +1,3 @@
+[submodule "src/todolist-client-core"]
+    path = src/todolist-client-core
+    url = https://gitlab.com/todolist-micro-services/todolist-client-core.git
