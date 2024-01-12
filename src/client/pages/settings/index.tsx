@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "semantic-ui-react";
+import { Button, Dropdown } from "semantic-ui-react";
 
 import { SideBar } from "@components/sideBar";
 import { removeSession, retrieveSession } from "@utils/sessions.ts";
@@ -11,6 +11,7 @@ import {
   useUserUpdate,
 } from "@core/viewModels";
 import styles from "./styles.module.scss";
+import i18n from "i18next";
 
 function Settings() {
   const navigate = useNavigate();
@@ -24,6 +25,14 @@ function Settings() {
     isRequestFailure,
     isRequestPending,
   } = useUserRemoval();
+  const countryOptions = [
+    { key: "fr", value: "fr", flag: "fr", text: "Français" },
+    { key: "en", value: "en", flag: "uk", text: "English" },
+  ];
+
+  const changeLanguage = (language: string) => {
+    i18n.changeLanguage(language);
+  };
 
   const disconnect = () => {
     removeSession(sessionName);
@@ -82,6 +91,16 @@ function Settings() {
             <Button onClick={deleteAccount}>
               <p>Delete account</p>
             </Button>
+            <Dropdown
+              placeholder="Select Country"
+              fluid
+              search
+              selection
+              onChange={(_, { value }) => {
+                changeLanguage(typeof value === "string" ? value : "");
+              }}
+              options={countryOptions}
+            />
           </div>
         }
       />
