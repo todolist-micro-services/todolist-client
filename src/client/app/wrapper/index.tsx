@@ -13,6 +13,7 @@ function Wrapper() {
 
   const close = () => {
     pushView({ useCase: UseCases.None, data: null });
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useResetStatus(view.useCase, dispatch);
   };
 

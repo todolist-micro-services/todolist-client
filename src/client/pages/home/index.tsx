@@ -15,9 +15,6 @@ function Home() {
     useAllProjectsRetrieval();
   const selectedProject = retrieveData(storedProject);
 
-  if (selectedProject) {
-  }
-
   useEffect(() => {
     !isRequestSuccess && retrieveUser(retrieveSession(sessionName));
   }, []);
