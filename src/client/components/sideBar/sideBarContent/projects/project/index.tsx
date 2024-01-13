@@ -13,7 +13,7 @@ function Project({ project }: Props) {
   return (
     <div
       className={classNames(styles.project, {
-        [styles.isSelected]: project.id === selectedProject.id,
+        [styles.isSelected]: project.id === selectedProject?.id,
       })}
       onClick={() => setContextProject(project)}
     >

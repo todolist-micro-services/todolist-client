@@ -5,7 +5,7 @@ import { storedProject } from "@utils/constant.ts";
 
 type ProjectContextType = {
   setContextProject: (project: Identifiable<Project>) => void;
-  project: Identifiable<Project>;
+  project: Identifiable<Project> | undefined;
 };
 
 const ProjectContext = createContext<ProjectContextType>({
@@ -14,14 +14,13 @@ const ProjectContext = createContext<ProjectContextType>({
 });
 
 function ProjectContextProvider({ children }: { children: React.ReactNode }) {
-  const [project, setProject] = useState<Identifiable<Project>>({
-    ...initialProject,
-    id: 0,
-  });
+  const [project, setProject] = useState<Identifiable<Project> | undefined>(
+    undefined
+  );
 
-  function setContextProject(project: Identifiable<Project>) {
+  function setContextProject(project: Identifiable<Project> | undefined) {
     setProject(project);
-    storeData(storedProject, project.id.toString());
+    storeData(storedProject, project?.id.toString() ?? "");
   }
 
   const contextValue: ProjectContextType = {
