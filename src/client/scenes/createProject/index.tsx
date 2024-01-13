@@ -1,10 +1,4 @@
-import {
-  Button,
-  Input,
-  Modal,
-  ModalContent,
-  ModalHeader,
-} from "semantic-ui-react";
+import { Button, Modal, ModalContent, ModalHeader } from "semantic-ui-react";
 import { Props } from "./types.ts";
 import React, { useState } from "react";
 import {
@@ -41,14 +35,14 @@ function CreateProject({ close }: Props) {
     <Modal onClose={() => close()} open={true}>
       <ModalHeader>Create project</ModalHeader>
       <ModalContent>
-        <Input
+        <input
           placeholder={"name"}
-          onChange={(e, { value }) => setProject({ ...project, name: value })}
+          onChange={(e) => setProject({ ...project, name: e.target.value })}
         />
-        <Input
+        <input
           placeholder={"description"}
-          onChange={(e, { value }) =>
-            setProject({ ...project, description: value })
+          onChange={(e) =>
+            setProject({ ...project, description: e.target.value })
           }
         />
         <Button
