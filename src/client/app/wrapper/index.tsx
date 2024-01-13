@@ -4,12 +4,16 @@ import { Register } from "@scenes/register";
 import { CreateProject } from "@scenes/createProject";
 import { UpdateProject } from "@scenes/updateProject";
 import { DeleteProject } from "@scenes/deleteProject";
+import { useResetStatus } from "@core/reducer/status.ts";
+import { useAppDispatch } from "@core/utils";
 
 function Wrapper() {
   const { view, pushView } = useWrapperContext();
+  const dispatch = useAppDispatch();
 
   const close = () => {
     pushView({ useCase: UseCases.None, data: null });
+    useResetStatus(view.useCase, dispatch);
   };
 
   const modals = {
