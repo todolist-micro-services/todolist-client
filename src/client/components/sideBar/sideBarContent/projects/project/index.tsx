@@ -13,7 +13,7 @@ function Project({ project }: Props) {
   return (
     <div
       className={classNames(styles.project, {
-        [styles.isSelected]: project.uuid === selectedProject.uuid,
+        [styles.isSelected]: project.id === selectedProject.id,
       })}
       onClick={() => setContextProject(project)}
     >
@@ -39,7 +39,7 @@ function Project({ project }: Props) {
             e.stopPropagation();
             pushView({
               useCase: UseCases.DeleteProject,
-              data: { projectId: project.uuid },
+              data: { project },
             });
           }}
         >

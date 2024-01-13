@@ -26,7 +26,7 @@ function Home() {
     retrieveAllProjects &&
       selectedProject &&
       setContextProject(
-        projects.filter((data) => data.uuid === +selectedProject)[0]
+        projects.filter((data) => data.id === +selectedProject)[0]
       );
   }, [retrieveAllProjects]);
 

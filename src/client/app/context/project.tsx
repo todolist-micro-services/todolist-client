@@ -10,18 +10,18 @@ type ProjectContextType = {
 
 const ProjectContext = createContext<ProjectContextType>({
   setContextProject: () => {},
-  project: { ...initialProject, uuid: 0 },
+  project: { ...initialProject, id: 0 },
 });
 
 function ProjectContextProvider({ children }: { children: React.ReactNode }) {
   const [project, setProject] = useState<Identifiable<Project>>({
     ...initialProject,
-    uuid: 0,
+    id: 0,
   });
 
   function setContextProject(project: Identifiable<Project>) {
     setProject(project);
-    storeData(storedProject, project.uuid.toString());
+    storeData(storedProject, project.id.toString());
   }
 
   const contextValue: ProjectContextType = {

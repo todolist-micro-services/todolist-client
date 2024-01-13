@@ -1,8 +1,8 @@
-import { Id } from "@core/dto";
+import { Identifiable, Project } from "@core/dto";
 
 interface Props {
   close(): void;
-  projectId: Id;
+  project: Identifiable<Project>;
 }
 
 export type { Props };

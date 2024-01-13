@@ -25,9 +25,9 @@ function Wrapper() {
       <UpdateProject project={project} close={close} />
     ),
     [UseCases.DeleteProject]: ({
-      projectId,
+      project,
     }: ViewModels[UseCases.DeleteProject]) => (
-      <DeleteProject projectId={projectId} close={close} />
+      <DeleteProject project={project} close={close} />
     ),
   };
 

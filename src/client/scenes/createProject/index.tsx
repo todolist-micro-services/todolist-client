@@ -23,7 +23,7 @@ function CreateProject({ close }: Props) {
     creator: user.id,
     description: "",
     name: "",
-    uuid: 0,
+    id: 0,
   });
   const { isRequestSuccess, projectId, createProject } = useProjectCreation();
   const { linkUserToProject } = useUserToProjectLinkCreation();
@@ -32,7 +32,7 @@ function CreateProject({ close }: Props) {
     isRequestSuccess &&
       linkUserToProject(
         user,
-        { ...project, uuid: projectId },
+        { ...project, id: projectId },
         retrieveSession(sessionName)
       );
     isRequestSuccess && close();
