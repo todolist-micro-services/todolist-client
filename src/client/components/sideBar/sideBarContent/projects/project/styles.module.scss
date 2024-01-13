@@ -1,0 +1,46 @@
+.project {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+
+  &:hover {
+    background-color: rgba(147, 145, 145, 0.38);
+
+    & > .iconBox {
+      display: flex;
+    }
+  }
+}
+
+.isSelected {
+  background-color: rgba(147, 145, 145, 0.38);
+}
+
+.nameBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.name {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.iconBox {
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconInfo:hover {
+  color: blue;
+}
+
+.iconTrash:hover {
+  color: red;
+}
