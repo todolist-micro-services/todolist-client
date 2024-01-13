@@ -14,11 +14,11 @@ import { sessionName } from "@utils/constant.ts";
 
 function UpdateProject({ close, project }: Props) {
   const [newProject, setNewProject] = useState(project);
-  const { updateProject, project: pad } = useProjectUpdate();
+  const { updateProject, isRequestSuccess } = useProjectUpdate();
 
   useEffect(() => {
-    console.log(pad);
-  }, [pad]);
+    isRequestSuccess && close();
+  }, [isRequestSuccess]);
 
   return (
     <Modal onClose={() => close()} open={true}>
