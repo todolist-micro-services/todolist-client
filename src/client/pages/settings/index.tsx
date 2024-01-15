@@ -15,7 +15,7 @@ import i18n from "i18next";
 
 function Settings() {
   const navigate = useNavigate();
-  const { retrieveUser, isRequestSuccess, user } = useUserRetrieval();
+  const { isRequestSuccess, user } = useUserRetrieval();
   const [firstname, setFirstname] = useState(user.firstname);
   const [lastname, setLastname] = useState(user.lastname);
   const { updateUser } = useUserUpdate();
@@ -50,10 +50,6 @@ function Settings() {
   const updateUserCta = () => {
     updateUser(retrieveSession(sessionName), { ...user, firstname, lastname });
   };
-
-  useEffect(() => {
-    !isRequestSuccess && retrieveUser(retrieveSession(sessionName));
-  }, []);
 
   useEffect(() => {
     isRequestSuccess && setFirstname(user.firstname);
