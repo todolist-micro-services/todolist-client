@@ -6,6 +6,9 @@ import { UpdateProject } from "@scenes/updateProject";
 import { DeleteProject } from "@scenes/deleteProject";
 import { useResetStatus } from "@core/reducer/status.ts";
 import { useAppDispatch } from "@core/utils";
+import { CreateList } from "@scenes/createList";
+import { UpdateList } from "@scenes/updateList";
+import { DeleteList } from "@scenes/deleteList";
 
 function Wrapper() {
   const { view, pushView } = useWrapperContext();
@@ -33,6 +36,18 @@ function Wrapper() {
       project,
     }: ViewModels[UseCases.DeleteProject]) => (
       <DeleteProject project={project} close={close} />
+    ),
+    [UseCases.CreateList]: ({
+      user,
+      project,
+    }: ViewModels[UseCases.CreateList]) => (
+      <CreateList user={user} project={project} close={close} />
+    ),
+    [UseCases.UpdateList]: ({ list }: ViewModels[UseCases.UpdateList]) => (
+      <UpdateList list={list} close={close} />
+    ),
+    [UseCases.DeleteList]: ({ list }: ViewModels[UseCases.DeleteList]) => (
+      <DeleteList list={list} close={close} />
     ),
   };
 
