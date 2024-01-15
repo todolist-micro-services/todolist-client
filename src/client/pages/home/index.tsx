@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 
 import { SideBar } from "@components/sideBar";
-import { retrieveSession } from "@utils/sessions.ts";
-import { sessionName, storedProject } from "@utils/constant.ts";
+import { storedProject } from "@utils/constant.ts";
 import { useAllProjectsRetrieval, useUserRetrieval } from "@core/viewModels";
 import { useProjectContext } from "@app/context/project.tsx";
 import { retrieveData } from "@utils/storeData.ts";
@@ -15,7 +14,7 @@ import { initialProject } from "@core/dto";
 
 function Home() {
   const { t } = useTranslation();
-  const { retrieveUser, isRequestSuccess, user } = useUserRetrieval();
+  const { user } = useUserRetrieval();
   const { project, setContextProject } = useProjectContext();
   const { pushView } = useWrapperContext();
   const { projects, isRequestSuccess: retrieveAllProjects } =
@@ -25,10 +24,6 @@ function Home() {
   if (!selectedProject?.length && projects.length) {
     setContextProject(projects[0]);
   }
-
-  useEffect(() => {
-    !isRequestSuccess && retrieveUser(retrieveSession(sessionName));
-  }, []);
 
   useEffect(() => {
     retrieveAllProjects &&

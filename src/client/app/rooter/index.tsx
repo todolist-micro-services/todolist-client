@@ -7,7 +7,7 @@ import { Login } from "@pages/login";
 import { Home } from "@pages/home";
 import { Settings } from "@pages/settings";
 import styles from "./styles.module.scss";
-import { useLogin, useRegister } from "@core/viewModels";
+import { useLogin, useRegister, useUserRetrieval } from "@core/viewModels";
 import { removeSession, retrieveSession, setSession } from "@utils/sessions.ts";
 import { sessionName } from "@utils/constant.ts";
 
@@ -46,6 +46,7 @@ function Rooter() {
   const { isRequestSuccess: loginSuccess, token: loginToken } = useLogin();
   const { isRequestSuccess: registerSuccess, token: registerToken } =
     useRegister();
+  const { retrieveUser, isRequestPending } = useUserRetrieval();
 
   const createSession = (
     sessionName: string,
@@ -75,6 +76,16 @@ function Rooter() {
 
   const isAuthenticated = retrieveSession(sessionName);
 
+  React.useEffect(() => {
+    retrieveUser(isAuthenticated);
+  }, []);
+
+  if (isRequestPending)
+    return (
+      <div className={styles.rooter}>
+        <p>pending...</p>
+      </div>
+    );
   return (
     <div className={styles.rooter}>
       <RouterProvider router={isAuthenticated ? privateRouter : publicRouter} />
