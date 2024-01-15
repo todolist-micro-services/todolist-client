@@ -9,6 +9,9 @@ import { useAppDispatch } from "@core/utils";
 import { CreateList } from "@scenes/createList";
 import { UpdateList } from "@scenes/updateList";
 import { DeleteList } from "@scenes/deleteList";
+import { CreateTask } from "@scenes/createTask";
+import { UpdateTask } from "@scenes/updateTask";
+import { DeleteTask } from "@scenes/deleteTask";
 
 function Wrapper() {
   const { view, pushView } = useWrapperContext();
@@ -48,6 +51,21 @@ function Wrapper() {
     ),
     [UseCases.DeleteList]: ({ list }: ViewModels[UseCases.DeleteList]) => (
       <DeleteList list={list} close={close} />
+    ),
+    [UseCases.CreateTask]: ({
+      list,
+      user,
+    }: ViewModels[UseCases.CreateTask]) => (
+      <CreateTask user={user} list={list} close={close} />
+    ),
+    [UseCases.UpdateTask]: ({
+      task,
+      lists,
+    }: ViewModels[UseCases.UpdateTask]) => (
+      <UpdateTask task={task} lists={lists} close={close} />
+    ),
+    [UseCases.DeleteTask]: ({ task }: ViewModels[UseCases.DeleteTask]) => (
+      <DeleteTask task={task} close={close} />
     ),
   };
 

@@ -1,21 +1,29 @@
-import { useAllProjectListsRetrieval } from "@core/viewModels";
-import { Props } from "./types.ts";
-import styles from "./styles.module.scss";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+
+import {
+  useAllProjectListsRetrieval,
+  useProjectTasksRetrieval,
+} from "@core/viewModels";
+import { UseCases } from "@core/reducer/types.ts";
 import { retrieveSession } from "@utils/sessions.ts";
 import { sessionName } from "@utils/constant.ts";
-import { useTranslation } from "react-i18next";
 import { useWrapperContext } from "@app/wrapper/wrapper.tsx";
-import { UseCases } from "@core/reducer/types.ts";
+import { List } from "./list";
+import { Props } from "./types.ts";
+import styles from "./styles.module.scss";
 
 function Lists({ project, user }: Props) {
   const { t } = useTranslation();
   const { pushView } = useWrapperContext();
   const { retrieveAllProjectLists, lists } = useAllProjectListsRetrieval();
+  const { retrieveProjectTasks, tasks } = useProjectTasksRetrieval();
 
   useEffect(() => {
     project.id > 0 &&
       retrieveAllProjectLists(project, retrieveSession(sessionName));
+    project.id > 0 &&
+      retrieveProjectTasks(project, retrieveSession(sessionName));
   }, [project]);
 
   return (
@@ -35,15 +43,11 @@ function Lists({ project, user }: Props) {
       ) : (
         <div className={styles.groupList}>
           {lists.map((list, key) => (
-            <div
-              className={styles.list}
+            <List
               key={key}
-              onClick={() =>
-                pushView({ useCase: UseCases.UpdateList, data: { list } })
-              }
-            >
-              <p>{list.name}</p>
-            </div>
+              list={list}
+              tasks={tasks.filter((t) => t.list.id === list.id)}
+            />
           ))}
         </div>
       )}
