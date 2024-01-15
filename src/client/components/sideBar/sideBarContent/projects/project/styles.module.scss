@@ -1,17 +1,15 @@
 .project {
   width: 100%;
+  overflow: hidden;
   padding: 0.5rem 1rem;
   cursor: pointer;
   display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  text-align: center;
 
   &:hover {
     background-color: rgba(147, 145, 145, 0.38);
 
     & > .iconBox {
-      display: flex;
+      visibility: visible;
     }
   }
 }
@@ -23,18 +21,25 @@
 .nameBox {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  width: 87%;
 }
 
 .name {
   font-weight: bold;
   text-transform: uppercase;
+  color: white;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .iconBox {
-  display: none;
+  display: flex;
+  visibility: hidden;
   align-items: center;
   justify-content: center;
+  width: 10%;
 }
 
 .iconInfo:hover {

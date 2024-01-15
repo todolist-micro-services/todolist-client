@@ -4,14 +4,18 @@ import { SideBar } from "@components/sideBar";
 import { retrieveSession } from "@utils/sessions.ts";
 import { sessionName, storedProject } from "@utils/constant.ts";
 import { useAllProjectsRetrieval, useUserRetrieval } from "@core/viewModels";
-import styles from "./styles.module.scss";
 import { useProjectContext } from "@app/context/project.tsx";
 import { retrieveData } from "@utils/storeData.ts";
 import { useWrapperContext } from "@app/wrapper/wrapper.tsx";
 import { UseCases } from "@core/reducer/types.ts";
+import { Lists } from "./lists";
+import styles from "./styles.module.scss";
+import { useTranslation } from "react-i18next";
+import { initialProject } from "@core/dto";
 
 function Home() {
-  const { retrieveUser, isRequestSuccess } = useUserRetrieval();
+  const { t } = useTranslation();
+  const { retrieveUser, isRequestSuccess, user } = useUserRetrieval();
   const { project, setContextProject } = useProjectContext();
   const { pushView } = useWrapperContext();
   const { projects, isRequestSuccess: retrieveAllProjects } =
@@ -52,7 +56,18 @@ function Home() {
                 </button>
               </div>
             ) : (
-              <p>Display all list/task of project: {project?.name}</p>
+              <div className={styles.content}>
+                {!retrieveAllProjects ? (
+                  <div>
+                    <p>{t("pages.home.requestPending")}</p>
+                  </div>
+                ) : (
+                  <Lists
+                    project={project ?? { ...initialProject, id: 0 }}
+                    user={user}
+                  />
+                )}
+              </div>
             )}
           </div>
         }
