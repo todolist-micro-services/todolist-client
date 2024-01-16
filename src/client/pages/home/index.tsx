@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import AddIcon from "@mui/icons-material/Add";
+import { Button } from "@mui/material";
 
 import { storedProject } from "@utils/constant.ts";
 import { useAllProjectsRetrieval, useUserRetrieval } from "@core/viewModels";
@@ -36,17 +38,19 @@ function Home() {
 
   return (
     <div className={styles.home}>
-      <TopBar title={project?.name ?? "No Project selected"} />
+      <TopBar title={project?.name ?? t("pages.home.noProjectSelected")} />
       {!projects.length ? (
-        <div>
+        <div className={styles.noProjects}>
           <p>{t("pages.home.noProjects")}</p>
-          <button
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
             onClick={() =>
               pushView({ useCase: UseCases.CreateProject, data: {} })
             }
           >
-            <p>{t("pages.home.createProject")}</p>
-          </button>
+            {t("pages.home.createProject")}
+          </Button>
         </div>
       ) : (
         <div className={styles.content}>

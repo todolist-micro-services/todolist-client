@@ -1,7 +1,6 @@
 .createProject {
-  display: inline-flex;
-  padding: 1rem 0.5rem;
-  cursor: pointer;
-  width: 100%;
-  background: grey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0;
 }

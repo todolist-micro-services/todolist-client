@@ -2,14 +2,15 @@ import { Settings } from "./settings";
 import { Title } from "./title";
 import { Projects } from "./projects";
 import styles from "./styles.module.scss";
+import { Divider } from "@mui/material";
 
 function SideBarContent() {
-  const isHomePage = window.location.pathname === "/home";
-
   return (
     <div className={styles.sideBar}>
       <Title />
-      {isHomePage && <Projects />}
+      <Divider />
+      <Projects />
+      <Divider />
       <Settings />
     </div>
   );
