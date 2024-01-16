@@ -1,5 +1,5 @@
 interface Props {
-  close(): void;
+  title: string;
 }
 
 export type { Props };

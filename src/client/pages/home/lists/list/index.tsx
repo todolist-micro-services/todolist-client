@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import { Icon } from "semantic-ui-react";
 
 import { useWrapperContext } from "@app/wrapper/wrapper.tsx";
 import { UseCases } from "@core/reducer/types.ts";
@@ -32,8 +31,7 @@ function List({ list, tasks }: Props) {
           pushView({ useCase: UseCases.CreateTask, data: { list, user } })
         }
       >
-        <Icon name={"plus"} />
-        <p>{t("pages.home.list.addTask")}</p>
+        <p>+{t("pages.home.list.addTask")}</p>
       </div>
       <div className={styles.tasks}>
         {tasks.map((task, key) => (
@@ -55,7 +53,7 @@ function List({ list, tasks }: Props) {
                 });
               }}
             >
-              <Icon name={"trash"} />
+              T
             </div>
           </div>
         ))}

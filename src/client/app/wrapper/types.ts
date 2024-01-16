@@ -3,7 +3,6 @@ import { Identifiable, List, Project, Task, User } from "@core/dto";
 
 interface ViewModels {
   [UseCases.None]: null;
-  [UseCases.Register]: NonNullable<unknown>;
   [UseCases.CreateProject]: NonNullable<unknown>;
   [UseCases.UpdateProject]: { project: Identifiable<Project> };
   [UseCases.DeleteProject]: { project: Identifiable<Project> };

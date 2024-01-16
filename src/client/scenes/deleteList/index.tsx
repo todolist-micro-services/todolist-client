@@ -1,15 +1,10 @@
-import {
-  Button,
-  Modal,
-  ModalActions,
-  ModalContent,
-  ModalHeader,
-} from "semantic-ui-react";
-import { Props } from "./types.ts";
 import { useTranslation } from "react-i18next";
+import { Button, Modal } from "@mui/material";
+
 import { useListRemoval } from "@core/viewModels";
 import { retrieveSession } from "@utils/sessions.ts";
 import { sessionName } from "@utils/constant.ts";
+import { Props } from "./types.ts";
 
 function DeleteList({ close, list }: Props) {
   const { t } = useTranslation();
@@ -17,26 +12,25 @@ function DeleteList({ close, list }: Props) {
 
   return (
     <Modal onClose={() => close()} open={true}>
-      <ModalHeader>
-        {t("deleteList.title")} {list.name}
-      </ModalHeader>
-      <ModalContent>
-        <p>{t("deleteList.confirmation")}</p>
-      </ModalContent>
-      <ModalActions>
-        <Button onClick={close}>
-          <p>{t("deleteList.cancel")}</p>
-        </Button>
-        <Button
-          color={"red"}
-          onClick={() => {
-            deleteList(list, retrieveSession(sessionName));
-            close();
-          }}
-        >
-          <p>{t("deleteList.cta")}</p>
-        </Button>
-      </ModalActions>
+      <div>
+        <p>
+          {t("deleteList.title")} {list.name}
+        </p>
+        <div>
+          <p>{t("deleteList.confirmation")}</p>
+          <Button onClick={close}>
+            <p>{t("deleteList.cancel")}</p>
+          </Button>
+          <Button
+            onClick={() => {
+              deleteList(list, retrieveSession(sessionName));
+              close();
+            }}
+          >
+            <p>{t("deleteList.cta")}</p>
+          </Button>
+        </div>
+      </div>
     </Modal>
   );
 }

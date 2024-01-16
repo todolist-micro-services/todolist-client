@@ -1,5 +1,4 @@
 import * as classNames from "classnames";
-import { Icon } from "semantic-ui-react";
 
 import { useWrapperContext } from "@app/wrapper/wrapper.tsx";
 import { UseCases } from "@core/reducer/main.ts";
@@ -32,7 +31,7 @@ function Project({ project }: Props) {
             });
           }}
         >
-          <Icon name={"info"} />
+          I
         </div>
         <div
           className={styles.iconTrash}
@@ -44,7 +43,7 @@ function Project({ project }: Props) {
             });
           }}
         >
-          <Icon name={"trash"} />
+          T
         </div>
       </div>
     </div>

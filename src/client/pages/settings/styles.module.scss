@@ -1,3 +1,32 @@
 .settings {
   height: 100%;
+  width: 100%;
+
+  & > :not(:first-child) {
+    width: 95%;
+    margin-left: 2.5%;
+  }
+}
+
+.topBar {
+  margin-bottom: 3rem;
+}
+
+.languageSelector {
+  margin-bottom: 3rem !important;
+}
+
+.updateAccountForm {
+  margin: 3rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.buttons {
+  margin-top: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

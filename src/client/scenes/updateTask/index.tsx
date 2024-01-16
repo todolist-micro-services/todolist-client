@@ -1,16 +1,11 @@
-import { useTranslation } from "react-i18next";
-import {
-  Modal,
-  ModalActions,
-  ModalContent,
-  ModalHeader,
-} from "semantic-ui-react";
-
-import { Props } from "./types.ts";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Modal } from "@mui/material";
+
 import { useTaskUpdate } from "@core/viewModels";
 import { retrieveSession } from "@utils/sessions.ts";
 import { sessionName } from "@utils/constant.ts";
+import { Props } from "./types.ts";
 
 function UpdateTask({ close, task, lists }: Props) {
   const { t } = useTranslation();
@@ -19,42 +14,48 @@ function UpdateTask({ close, task, lists }: Props) {
 
   return (
     <Modal onClose={() => close()} open={true}>
-      <ModalHeader>{t("updateTask.title")}</ModalHeader>
-      <ModalContent>
-        <input
-          defaultValue={updatedTask.name}
-          placeholder={"name"}
-          onChange={(e) =>
-            setUpdatedTask({ ...updatedTask, name: e.target.value })
-          }
-        />
-        <input
-          defaultValue={updatedTask.description}
-          placeholder={"description"}
-          onChange={(e) =>
-            setUpdatedTask({ ...updatedTask, description: e.target.value })
-          }
-        />
-        {lists.map((list, key) => (
-          <div
-            key={key}
-            onClick={() => setUpdatedTask({ ...updatedTask, list })}
+      <div>
+        <p>{t("updateTask.title")}</p>
+        <div>
+          <input
+            defaultValue={updatedTask.name}
+            placeholder={"name"}
+            onChange={(e) =>
+              setUpdatedTask({ ...updatedTask, name: e.target.value })
+            }
+          />
+          <input
+            defaultValue={updatedTask.description}
+            placeholder={"description"}
+            onChange={(e) =>
+              setUpdatedTask({ ...updatedTask, description: e.target.value })
+            }
+          />
+          {lists.map((list, key) => (
+            <div
+              key={key}
+              onClick={() => setUpdatedTask({ ...updatedTask, list })}
+            >
+              <p>{list.name}</p>
+            </div>
+          ))}
+        </div>
+        <div>
+          <button onClick={close}>Cancel</button>
+          <button
+            onClick={() => {
+              updateTask(
+                task,
+                { ...updatedTask },
+                retrieveSession(sessionName)
+              );
+              close();
+            }}
           >
-            <p>{list.name}</p>
-          </div>
-        ))}
-      </ModalContent>
-      <ModalActions>
-        <button onClick={close}>Cancel</button>
-        <button
-          onClick={() => {
-            updateTask(task, { ...updatedTask }, retrieveSession(sessionName));
-            close();
-          }}
-        >
-          Update
-        </button>
-      </ModalActions>
+            Update
+          </button>
+        </div>
+      </div>
     </Modal>
   );
 }

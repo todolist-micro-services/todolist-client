@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Modal, ModalContent, ModalHeader } from "semantic-ui-react";
+import { Modal } from "@mui/material";
 
 import { Props } from "./types.ts";
 import React, { useState } from "react";
@@ -32,28 +32,32 @@ function CreateTask({ close, list, user }: Props) {
 
   return (
     <Modal onClose={() => close()} open={true}>
-      <ModalHeader>{t("createTask.title")}</ModalHeader>
-      {isRequestPending ? (
-        <ModalContent>pending...</ModalContent>
-      ) : (
-        <ModalContent>
-          <input
-            defaultValue={task.name}
-            placeholder={"name"}
-            onChange={(e) => setTask({ ...task, name: e.target.value })}
-          />
-          <input
-            defaultValue={task.description}
-            placeholder={"description"}
-            onChange={(e) => setTask({ ...task, description: e.target.value })}
-          />
-          <button
-            onClick={() => createTask(task, retrieveSession(sessionName))}
-          >
-            Create task
-          </button>
-        </ModalContent>
-      )}
+      <div>
+        <p>{t("createTask.title")}</p>
+        {isRequestPending ? (
+          <p>pending...</p>
+        ) : (
+          <div>
+            <input
+              defaultValue={task.name}
+              placeholder={"name"}
+              onChange={(e) => setTask({ ...task, name: e.target.value })}
+            />
+            <input
+              defaultValue={task.description}
+              placeholder={"description"}
+              onChange={(e) =>
+                setTask({ ...task, description: e.target.value })
+              }
+            />
+            <button
+              onClick={() => createTask(task, retrieveSession(sessionName))}
+            >
+              Create task
+            </button>
+          </div>
+        )}
+      </div>
     </Modal>
   );
 }

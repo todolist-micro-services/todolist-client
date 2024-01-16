@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import { Icon } from "semantic-ui-react";
 
 import { useWrapperContext } from "@app/wrapper/wrapper.tsx";
 import { UseCases } from "@core/reducer/main.ts";
@@ -16,8 +15,7 @@ function CreateProject() {
         pushView({ useCase: UseCases.CreateProject, data: {} });
       }}
     >
-      <Icon name={"plus"} />
-      <p>{t("component.sideBar.createProject")}</p>
+      <p>+{t("component.sideBar.createProject")}</p>
     </div>
   );
 }

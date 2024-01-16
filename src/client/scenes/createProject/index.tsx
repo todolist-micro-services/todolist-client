@@ -1,6 +1,6 @@
-import { Button, Modal, ModalContent, ModalHeader } from "semantic-ui-react";
-import { Props } from "./types.ts";
 import React, { useState } from "react";
+import { Button, Modal } from "@mui/material";
+
 import {
   useProjectCreation,
   useUserRetrieval,
@@ -9,6 +9,7 @@ import {
 import { retrieveSession } from "@utils/sessions.ts";
 import { sessionName } from "@utils/constant.ts";
 import { Identifiable, Project } from "@core/dto";
+import { Props } from "./types.ts";
 
 function CreateProject({ close }: Props) {
   const { user } = useUserRetrieval();
@@ -33,24 +34,26 @@ function CreateProject({ close }: Props) {
   }, [isRequestSuccess]);
   return (
     <Modal onClose={() => close()} open={true}>
-      <ModalHeader>Create project</ModalHeader>
-      <ModalContent>
-        <input
-          placeholder={"name"}
-          onChange={(e) => setProject({ ...project, name: e.target.value })}
-        />
-        <input
-          placeholder={"description"}
-          onChange={(e) =>
-            setProject({ ...project, description: e.target.value })
-          }
-        />
-        <Button
-          onClick={() => createProject(project, retrieveSession(sessionName))}
-        >
-          <p>create project</p>
-        </Button>
-      </ModalContent>
+      <div>
+        <p>Create project</p>
+        <div>
+          <input
+            placeholder={"name"}
+            onChange={(e) => setProject({ ...project, name: e.target.value })}
+          />
+          <input
+            placeholder={"description"}
+            onChange={(e) =>
+              setProject({ ...project, description: e.target.value })
+            }
+          />
+          <Button
+            onClick={() => createProject(project, retrieveSession(sessionName))}
+          >
+            <p>create project</p>
+          </Button>
+        </div>
+      </div>
     </Modal>
   );
 }

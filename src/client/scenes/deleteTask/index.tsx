@@ -1,10 +1,5 @@
 import { useTranslation } from "react-i18next";
-import {
-  Modal,
-  ModalActions,
-  ModalContent,
-  ModalHeader,
-} from "semantic-ui-react";
+import { Modal } from "@mui/material";
 
 import { Props } from "./types.ts";
 import { useTaskRemoval } from "@core/viewModels";
@@ -17,21 +12,23 @@ function DeleteTask({ close, task }: Props) {
 
   return (
     <Modal onClose={() => close()} open={true}>
-      <ModalHeader>{t("deleteTask.title")}</ModalHeader>
-      <ModalContent>
-        <p>Are you sur ? No going back</p>
-      </ModalContent>
-      <ModalActions>
-        <button onClick={close}>Cancel</button>
-        <button
-          onClick={() => {
-            deleteTask(task, retrieveSession(sessionName));
-            close();
-          }}
-        >
-          Supprimer
-        </button>
-      </ModalActions>
+      <div>
+        <p>{t("deleteTask.title")}</p>
+        <div>
+          <p>Are you sur ? No going back</p>
+        </div>
+        <div>
+          <button onClick={close}>Cancel</button>
+          <button
+            onClick={() => {
+              deleteTask(task, retrieveSession(sessionName));
+              close();
+            }}
+          >
+            Supprimer
+          </button>
+        </div>
+      </div>
     </Modal>
   );
 }

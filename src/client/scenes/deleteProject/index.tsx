@@ -1,18 +1,10 @@
-import {
-  Button,
-  Header,
-  Icon,
-  Modal,
-  ModalActions,
-  ModalContent,
-  ModalDescription,
-  ModalHeader,
-} from "semantic-ui-react";
-import { Props } from "./types.ts";
+import { useEffect } from "react";
+import { Button, Modal } from "@mui/material";
+
 import { useProjectRemoval } from "@core/viewModels";
 import { retrieveSession } from "@utils/sessions.ts";
 import { sessionName } from "@utils/constant.ts";
-import { useEffect } from "react";
+import { Props } from "./types.ts";
 
 function DeleteProject({ close, project }: Props) {
   const { deleteProject, isRequestSuccess } = useProjectRemoval();
@@ -23,26 +15,25 @@ function DeleteProject({ close, project }: Props) {
 
   return (
     <Modal onClose={() => close()} open={true}>
-      <ModalHeader>Delete project</ModalHeader>
-      <ModalContent image>
-        <ModalDescription>
-          <Header>{project.name}</Header>
-          <p>Are you sure you want to delete the project ?</p>
-        </ModalDescription>
-      </ModalContent>
-      <ModalActions>
-        <Button color="grey" onClick={close}>
-          <Icon name="remove" /> No
-        </Button>
-        <Button
-          color="red"
-          onClick={() =>
-            deleteProject(project.id, retrieveSession(sessionName))
-          }
-        >
-          <Icon name="checkmark" /> Yes
-        </Button>
-      </ModalActions>
+      <div>
+        <p>Delete project</p>
+        <div>
+          <div>
+            <div>{project.name}</div>
+            <p>Are you sure you want to delete the project ?</p>
+          </div>
+        </div>
+        <div>
+          <Button onClick={close}>No</Button>
+          <Button
+            onClick={() =>
+              deleteProject(project.id, retrieveSession(sessionName))
+            }
+          >
+            Yes
+          </Button>
+        </div>
+      </div>
     </Modal>
   );
 }

@@ -50,7 +50,6 @@ function Lists({ project, user }: Props) {
 
   return (
     <div className={styles.lists}>
-      <p>{project.name}</p>
       <button
         onClick={() =>
           pushView({ useCase: UseCases.CreateList, data: { user, project } })
