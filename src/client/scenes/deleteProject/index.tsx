@@ -1,10 +1,12 @@
 import { useEffect } from "react";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import { useProjectRemoval } from "@core/viewModels";
 import { retrieveSession } from "@utils/sessions.ts";
 import { sessionName } from "@utils/constant.ts";
 import { Props } from "./types.ts";
+import styles from "./styles.module.scss";
 
 function DeleteProject({ close, project }: Props) {
   const { deleteProject, isRequestSuccess } = useProjectRemoval();
@@ -15,16 +17,17 @@ function DeleteProject({ close, project }: Props) {
 
   return (
     <div>
-      <p>Delete project</p>
+      <Typography id="modal-modal-title" variant="h6" component="h2">
+        Delete project: {project.name}
+      </Typography>
       <div>
-        <div>
-          <div>{project.name}</div>
-          <p>Are you sure you want to delete the project ?</p>
-        </div>
+        <p>Are you sure you want to delete this project ?</p>
       </div>
-      <div>
+      <div className={styles.buttons}>
         <Button onClick={close}>No</Button>
         <Button
+          color={"error"}
+          startIcon={<DeleteIcon />}
           onClick={() =>
             deleteProject(project.id, retrieveSession(sessionName))
           }
