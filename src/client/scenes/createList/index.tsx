@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button, Modal } from "@mui/material";
+import { Button } from "@mui/material";
 
 import { List } from "@core/dto";
 import { useListCreation, useUserToListLinkCreation } from "@core/viewModels";
@@ -31,28 +31,24 @@ function CreateList({ user, project, close }: Props) {
   }, [isRequestSuccess]);
 
   return (
-    <Modal onClose={() => close()} open={true}>
+    <div>
+      <p>{t("createList.title")}</p>
       <div>
-        <p>{t("createList.title")}</p>
-        <div>
-          <input
-            defaultValue={list.name}
-            placeholder={"name"}
-            onChange={(e) => setList({ ...list, name: e.target.value })}
-          />
-          <input
-            defaultValue={list.description}
-            placeholder={"description"}
-            onChange={(e) => setList({ ...list, description: e.target.value })}
-          />
-          <Button
-            onClick={() => createList(list, retrieveSession(sessionName))}
-          >
-            <p>{t("createList.cta")}</p>
-          </Button>
-        </div>
+        <input
+          defaultValue={list.name}
+          placeholder={"name"}
+          onChange={(e) => setList({ ...list, name: e.target.value })}
+        />
+        <input
+          defaultValue={list.description}
+          placeholder={"description"}
+          onChange={(e) => setList({ ...list, description: e.target.value })}
+        />
+        <Button onClick={() => createList(list, retrieveSession(sessionName))}>
+          <p>{t("createList.cta")}</p>
+        </Button>
       </div>
-    </Modal>
+    </div>
   );
 }
 

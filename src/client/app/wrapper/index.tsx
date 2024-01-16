@@ -11,6 +11,20 @@ import { DeleteList } from "@scenes/deleteList";
 import { CreateTask } from "@scenes/createTask";
 import { UpdateTask } from "@scenes/updateTask";
 import { DeleteTask } from "@scenes/deleteTask";
+import { Box, Modal } from "@mui/material";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid background.paper",
+  boxShadow: 24,
+  p: 4,
+  borderRadius: "4px",
+};
 
 function Wrapper() {
   const { view, pushView } = useWrapperContext();
@@ -68,7 +82,9 @@ function Wrapper() {
   return (
     <div>
       {view.useCase !== UseCases.None && (
-        <div>{modals[view.useCase](view.data)}</div>
+        <Modal onClose={() => close()} open={true}>
+          <Box sx={style}>{modals[view.useCase](view.data)}</Box>
+        </Modal>
       )}
     </div>
   );

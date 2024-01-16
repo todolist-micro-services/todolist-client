@@ -1,4 +1,3 @@
-import { Modal } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import { useProjectUpdate } from "@core/viewModels";
@@ -15,39 +14,37 @@ function UpdateProject({ close, project }: Props) {
   }, [isRequestSuccess]);
 
   return (
-    <Modal onClose={() => close()} open={true}>
+    <div>
+      <p>Update project</p>
       <div>
-        <p>Update project</p>
         <div>
-          <div>
-            <p>Update project {project.name}</p>
-            <input
-              defaultValue={newProject.name}
-              onChange={(e) =>
-                setNewProject({ ...newProject, name: e.target.value })
-              }
-            />
-            <input
-              defaultValue={newProject.description}
-              onChange={(e) =>
-                setNewProject({ ...newProject, description: e.target.value })
-              }
-            />
-            <button
-              onClick={() =>
-                updateProject(
-                  project,
-                  { ...newProject },
-                  retrieveSession(sessionName)
-                )
-              }
-            >
-              <p>update project</p>
-            </button>
-          </div>
+          <p>Update project {project.name}</p>
+          <input
+            defaultValue={newProject.name}
+            onChange={(e) =>
+              setNewProject({ ...newProject, name: e.target.value })
+            }
+          />
+          <input
+            defaultValue={newProject.description}
+            onChange={(e) =>
+              setNewProject({ ...newProject, description: e.target.value })
+            }
+          />
+          <button
+            onClick={() =>
+              updateProject(
+                project,
+                { ...newProject },
+                retrieveSession(sessionName)
+              )
+            }
+          >
+            <p>update project</p>
+          </button>
         </div>
       </div>
-    </Modal>
+    </div>
   );
 }
 

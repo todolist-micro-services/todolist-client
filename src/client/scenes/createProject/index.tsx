@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Modal } from "@mui/material";
+import { Button } from "@mui/material";
 
 import {
   useProjectCreation,
@@ -33,28 +33,26 @@ function CreateProject({ close }: Props) {
     isRequestSuccess && close();
   }, [isRequestSuccess]);
   return (
-    <Modal onClose={() => close()} open={true}>
+    <div>
+      <p>Create project</p>
       <div>
-        <p>Create project</p>
-        <div>
-          <input
-            placeholder={"name"}
-            onChange={(e) => setProject({ ...project, name: e.target.value })}
-          />
-          <input
-            placeholder={"description"}
-            onChange={(e) =>
-              setProject({ ...project, description: e.target.value })
-            }
-          />
-          <Button
-            onClick={() => createProject(project, retrieveSession(sessionName))}
-          >
-            <p>create project</p>
-          </Button>
-        </div>
+        <input
+          placeholder={"name"}
+          onChange={(e) => setProject({ ...project, name: e.target.value })}
+        />
+        <input
+          placeholder={"description"}
+          onChange={(e) =>
+            setProject({ ...project, description: e.target.value })
+          }
+        />
+        <Button
+          onClick={() => createProject(project, retrieveSession(sessionName))}
+        >
+          <p>create project</p>
+        </Button>
       </div>
-    </Modal>
+    </div>
   );
 }
 

@@ -8,8 +8,8 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { SideBarContent } from "@components/sideBar/sideBarContent";
 import MenuIcon from "@mui/icons-material/Menu";
+import { SideBar } from "src/client/components/sideBar";
 
 type Anchor = "top" | "left" | "bottom" | "right";
 function TopBar({ title }: Props) {
@@ -31,7 +31,6 @@ function TopBar({ title }: Props) {
       ) {
         return;
       }
-
       setState({ ...state, [anchor]: open });
     };
 
@@ -45,7 +44,7 @@ function TopBar({ title }: Props) {
             onClose={toggleDrawer("left", false)}
             onOpen={toggleDrawer("left", true)}
           >
-            {SideBarContent()}
+            {SideBar()}
           </SwipeableDrawer>
         </React.Fragment>
         <IconButton

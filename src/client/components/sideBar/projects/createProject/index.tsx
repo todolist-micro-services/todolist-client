@@ -22,14 +22,6 @@ function CreateProject() {
         {t("component.sideBar.createProject")}
       </Button>
     </div>
-    // <div
-    //   className={styles.createProject}
-    //   onClick={() => {
-    //     pushView({ useCase: UseCases.CreateProject, data: {} });
-    //   }}
-    // >
-    //   <p>+{t("component.sideBar.createProject")}</p>
-    // </div>
   );
 }
 
