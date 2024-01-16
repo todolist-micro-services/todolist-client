@@ -1,5 +1,4 @@
 import { Skeleton } from "@common/skeleton";
-
 import styles from "./styles.module.scss";
 
 function ProjectSkeleton() {

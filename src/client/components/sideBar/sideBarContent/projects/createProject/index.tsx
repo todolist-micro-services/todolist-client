@@ -1,9 +1,12 @@
-import styles from "./styles.module.scss";
+import { useTranslation } from "react-i18next";
 import { Icon } from "semantic-ui-react";
+
 import { useWrapperContext } from "@app/wrapper/wrapper.tsx";
 import { UseCases } from "@core/reducer/main.ts";
+import styles from "./styles.module.scss";
 
 function CreateProject() {
+  const { t } = useTranslation();
   const { pushView } = useWrapperContext();
 
   return (
@@ -14,7 +17,7 @@ function CreateProject() {
       }}
     >
       <Icon name={"plus"} />
-      <p>Create project</p>
+      <p>{t("component.sideBar.createProject")}</p>
     </div>
   );
 }
