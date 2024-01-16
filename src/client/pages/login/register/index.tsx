@@ -1,22 +1,24 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Input } from "semantic-ui-react";
+import { useTranslation } from "react-i18next";
 
 import { useRegister } from "@core/viewModels";
 import styles from "./styles.module.scss";
 
 function Register() {
+  const navigate = useNavigate();
+  const { t } = useTranslation();
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const { isRequestSuccess, register } = useRegister();
-  const navigate = useNavigate();
 
   const registerCta = () => {
     if (password !== passwordConfirmation) {
-      alert("Password are different");
+      alert(t("pages.login.differentPassword"));
     } else {
       register(firstname, lastname, email, password);
     }
@@ -25,37 +27,40 @@ function Register() {
   React.useEffect(() => {
     isRequestSuccess && navigate("/home");
     isRequestSuccess && window.location.reload();
-  }, [isRequestSuccess]);
+  }, [isRequestSuccess, navigate]);
 
   return (
     <div className={styles.register}>
-      <p>register</p>
+      <p>{t("pages.login.register")}</p>
       <Input
-        placeholder="Firstname"
+        placeholder={t("pages.login.placeholder.firstname")}
         type={"firstname"}
         onChange={(e) => setFirstname(e.target.value)}
       />
       <Input
-        placeholder="Lastname"
+        placeholder={t("pages.login.placeholder.lastname")}
         type={"lastname"}
         onChange={(e) => setLastname(e.target.value)}
       />
       <Input
-        placeholder="Email"
+        placeholder={t("pages.login.placeholder.email")}
         type={"Email"}
         onChange={(e) => setEmail(e.target.value)}
       />
       <Input
-        placeholder="Password"
+        placeholder={t("pages.login.placeholder.password")}
         type={"password"}
         onChange={(e) => setPassword(e.target.value)}
       />
       <Input
-        placeholder="Confirm password"
+        placeholder={t("pages.login.placeholder.passwordConfirm")}
         type={"password"}
         onChange={(e) => setPasswordConfirmation(e.target.value)}
       />
-      <Button content={"Submit"} onClick={() => registerCta()} />
+      <Button
+        content={t("pages.login.confirm")}
+        onClick={() => registerCta()}
+      />
     </div>
   );
 }

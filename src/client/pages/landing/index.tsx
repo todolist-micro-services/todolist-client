@@ -1,9 +1,9 @@
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-import styles from "./index.module.scss";
 import { useUserRetrieval } from "@core/viewModels";
-import React, { useState } from "react";
+import styles from "./index.module.scss";
 
 function Landing() {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ function Landing() {
       navigate("/home");
       setIsRedirect(true);
     }
-  }, [isRequestSuccess]);
+  }, [isRequestSuccess, navigate, isRedirect]);
 
   function redirect() {
     navigate("/login");
@@ -27,7 +27,7 @@ function Landing() {
       <p>{t("title")}</p>
       <p>{t("description")}</p>
       <button className={"ui button"} onClick={() => redirect()}>
-        <p>Login</p>
+        <p>{t("pages.landing.login")}</p>
       </button>
     </div>
   );

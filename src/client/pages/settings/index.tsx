@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import i18n from "i18next";
+import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Dropdown } from "semantic-ui-react";
 
@@ -11,27 +13,22 @@ import {
   useUserUpdate,
 } from "@core/viewModels";
 import styles from "./styles.module.scss";
-import i18n from "i18next";
 
 function Settings() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { isRequestSuccess, user } = useUserRetrieval();
   const [firstname, setFirstname] = useState(user.firstname);
   const [lastname, setLastname] = useState(user.lastname);
   const { updateUser } = useUserUpdate();
-  const {
-    deleteUser,
-    isRequestSuccess: removalSuccess,
-    isRequestFailure,
-    isRequestPending,
-  } = useUserRemoval();
+  const { deleteUser } = useUserRemoval();
   const countryOptions = [
     { key: "fr", value: "fr", flag: "fr", text: "Français" },
     { key: "en", value: "en", flag: "uk", text: "English" },
   ];
 
   const changeLanguage = (language: string) => {
-    i18n.changeLanguage(language);
+    i18n.changeLanguage(language).then();
   };
 
   const disconnect = () => {
@@ -54,41 +51,44 @@ function Settings() {
   useEffect(() => {
     isRequestSuccess && setFirstname(user.firstname);
     isRequestSuccess && setLastname(user.lastname);
-  }, [isRequestSuccess]);
+  }, [
+    isRequestSuccess,
+    setLastname,
+    setFirstname,
+    user.firstname,
+    user.lastname,
+  ]);
 
   return (
     <div className={styles.settings}>
       <SideBar
         children={
           <div>
-            <p>Settings page</p>
+            <p>{t("pages.settings.title")}</p>
             <input
-              placeholder={"firstname"}
+              placeholder={t("pages.settings.placeholder.firstname")}
               value={firstname}
               type={"firstname"}
               onChange={(e) => setFirstname(e.target.value)}
             />
             <input
-              placeholder={"lastname"}
+              placeholder={t("pages.settings.placeholder.lastname")}
               value={lastname}
               type={"lastname"}
               onChange={(e) => setLastname(e.target.value)}
             />
             <Button onClick={updateUserCta}>
-              <p>Update user</p>
+              <p>{t("pages.settings.update")}</p>
             </Button>
-            <Link to={`/home`}>home page</Link>
+            <Link to={`/home`}>{t("pages.settings.redirect")}</Link>
             <Button onClick={disconnect}>
-              <p>Disconnection</p>
+              <p>{t("pages.settings.disconnect")}</p>
             </Button>
-            {isRequestPending && <p>pending</p>}
-            {isRequestFailure && <p>pending</p>}
-            {removalSuccess && <p>pending</p>}
             <Button onClick={deleteAccount}>
-              <p>Delete account</p>
+              <p>{t("pages.settings.delete")}</p>
             </Button>
             <Dropdown
-              placeholder="Select Country"
+              placeholder={t("pages.settings.placeholder.language")}
               fluid
               search
               selection

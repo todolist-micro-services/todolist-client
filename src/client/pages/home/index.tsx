@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 import { SideBar } from "@components/sideBar";
 import { storedProject } from "@utils/constant.ts";
@@ -7,10 +8,9 @@ import { useProjectContext } from "@app/context/project.tsx";
 import { retrieveData } from "@utils/storeData.ts";
 import { useWrapperContext } from "@app/wrapper/wrapper.tsx";
 import { UseCases } from "@core/reducer/types.ts";
+import { initialProject } from "@core/dto";
 import { Lists } from "./lists";
 import styles from "./styles.module.scss";
-import { useTranslation } from "react-i18next";
-import { initialProject } from "@core/dto";
 
 function Home() {
   const { t } = useTranslation();
@@ -32,7 +32,7 @@ function Home() {
       setContextProject(
         projects.filter((data) => data.id === +selectedProject)[0]
       );
-  }, [retrieveAllProjects]);
+  }, [retrieveAllProjects, projects, selectedProject, setContextProject]);
 
   return (
     <div className={styles.home}>
@@ -41,13 +41,13 @@ function Home() {
           <div>
             {!projects.length ? (
               <div>
-                <p>You have no projects</p>
+                <p>{t("pages.home.noProjects")}</p>
                 <button
                   onClick={() =>
                     pushView({ useCase: UseCases.CreateProject, data: {} })
                   }
                 >
-                  <p>create new project</p>
+                  <p>{t("pages.home.createProject")}</p>
                 </button>
               </div>
             ) : (

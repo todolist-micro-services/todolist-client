@@ -1,13 +1,14 @@
-import { Props } from "./types.ts";
-import styles from "./styles.module.scss";
+import { useTranslation } from "react-i18next";
+import { Icon } from "semantic-ui-react";
+
 import { useWrapperContext } from "@app/wrapper/wrapper.tsx";
 import { UseCases } from "@core/reducer/types.ts";
 import {
   useAllProjectListsRetrieval,
   useUserRetrieval,
 } from "@core/viewModels";
-import { useTranslation } from "react-i18next";
-import { Icon } from "semantic-ui-react";
+import { Props } from "./types.ts";
+import styles from "./styles.module.scss";
 
 function List({ list, tasks }: Props) {
   const { t } = useTranslation();

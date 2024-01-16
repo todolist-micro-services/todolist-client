@@ -1,10 +1,11 @@
-import { Props } from "./type.ts";
-import styles from "./styles.module.scss";
+import * as classNames from "classnames";
 import { Icon } from "semantic-ui-react";
+
 import { useWrapperContext } from "@app/wrapper/wrapper.tsx";
 import { UseCases } from "@core/reducer/main.ts";
 import { useProjectContext } from "@app/context/project.tsx";
-import * as classNames from "classnames";
+import { Props } from "./type.ts";
+import styles from "./styles.module.scss";
 
 function Project({ project }: Props) {
   const { pushView } = useWrapperContext();

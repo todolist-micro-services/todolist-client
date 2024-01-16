@@ -1,38 +1,40 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Input } from "semantic-ui-react";
+import { useTranslation } from "react-i18next";
 
 import { useLogin } from "@core/viewModels";
 import styles from "./styles.module.scss";
 
 function Login() {
+  const navigate = useNavigate();
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { isRequestSuccess, login } = useLogin();
-  const navigate = useNavigate();
 
   React.useEffect(() => {
     isRequestSuccess && navigate("/home");
     isRequestSuccess && window.location.reload();
-  }, [isRequestSuccess]);
+  }, [isRequestSuccess, navigate]);
 
   const loginCta = () => {
     login(email, password);
   };
   return (
     <div className={styles.login}>
-      <p>login</p>
+      <p>{t("pages.login.login")}</p>
       <Input
-        placeholder="Email"
+        placeholder={t("pages.login.placeholder.email")}
         type={"email"}
         onChange={(e) => setEmail(e.target.value)}
       />
       <Input
-        placeholder="Password"
+        placeholder={t("pages.login.placeholder.password")}
         type={"password"}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <Button content={"Submit"} onClick={() => loginCta()} />
+      <Button content={t("pages.login.confirm")} onClick={() => loginCta()} />
     </div>
   );
 }

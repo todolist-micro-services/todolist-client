@@ -16,19 +16,41 @@ import styles from "./styles.module.scss";
 function Lists({ project, user }: Props) {
   const { t } = useTranslation();
   const { pushView } = useWrapperContext();
-  const { retrieveAllProjectLists, lists } = useAllProjectListsRetrieval();
-  const { retrieveProjectTasks, tasks } = useProjectTasksRetrieval();
+  const {
+    retrieveAllProjectLists,
+    lists,
+    isRequestPending: allListsPending,
+    isRequestSuccess: allListSuccess,
+  } = useAllProjectListsRetrieval();
+  const {
+    retrieveProjectTasks,
+    tasks,
+    isRequestPending: taskPending,
+    isRequestSuccess: tasksSuccess,
+  } = useProjectTasksRetrieval();
 
   useEffect(() => {
     project.id > 0 &&
+      !allListsPending &&
+      !allListSuccess &&
       retrieveAllProjectLists(project, retrieveSession(sessionName));
     project.id > 0 &&
+      !taskPending &&
+      !tasksSuccess &&
       retrieveProjectTasks(project, retrieveSession(sessionName));
-  }, [project]);
+  }, [
+    project,
+    retrieveAllProjectLists,
+    retrieveProjectTasks,
+    allListsPending,
+    allListSuccess,
+    taskPending,
+    tasksSuccess,
+  ]);
 
   return (
     <div className={styles.lists}>
-      <p>lists {project.name}</p>
+      <p>{project.name}</p>
       <button
         onClick={() =>
           pushView({ useCase: UseCases.CreateList, data: { user, project } })
