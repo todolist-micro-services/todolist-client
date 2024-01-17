@@ -1,53 +1,72 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Button, Checkbox, TextField, Typography } from "@mui/material";
 
 import { useTaskUpdate } from "@core/viewModels";
 import { retrieveSession } from "@utils/sessions.ts";
 import { sessionName } from "@utils/constant.ts";
 import { Props } from "./types.ts";
+import styles from "./styles.module.scss";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 function UpdateTask({ close, task, lists }: Props) {
   const { t } = useTranslation();
   const [updatedTask, setUpdatedTask] = useState(task);
-  const { updateTask } = useTaskUpdate();
+  const { updateTask, isRequestPending } = useTaskUpdate();
 
   return (
     <div>
-      <p>{t("updateTask.title")}</p>
-      <div>
-        <input
-          defaultValue={updatedTask.name}
-          placeholder={"name"}
-          onChange={(e) =>
-            setUpdatedTask({ ...updatedTask, name: e.target.value })
-          }
-        />
-        <input
-          defaultValue={updatedTask.description}
-          placeholder={"description"}
-          onChange={(e) =>
-            setUpdatedTask({ ...updatedTask, description: e.target.value })
-          }
-        />
-        {lists.map((list, key) => (
-          <div
-            key={key}
-            onClick={() => setUpdatedTask({ ...updatedTask, list })}
-          >
-            <p>{list.name}</p>
-          </div>
-        ))}
+      <Typography id="modal-modal-title" variant="h6" component="h2">
+        {t("updateTask.title")}
+        {task.name}
+      </Typography>
+      <div className={styles.content}>
+        <div className={styles.textInputs}>
+          <TextField
+            label="name"
+            defaultValue={updatedTask.name}
+            onChange={(e) =>
+              setUpdatedTask({ ...updatedTask, name: e.target.value })
+            }
+          />
+          <TextField
+            label="description"
+            defaultValue={updatedTask.name}
+            onChange={(e) =>
+              setUpdatedTask({ ...updatedTask, description: e.target.value })
+            }
+          />
+        </div>
+        <p>Select one list</p>
+        <div className={styles.selectList}>
+          {lists.map((list, key) => (
+            <div className={styles.list} key={key}>
+              <Checkbox
+                checked={updatedTask.list.id === list.id}
+                onClick={() => {
+                  setUpdatedTask({ ...updatedTask, list });
+                }}
+              />
+              <p>{list.name}</p>
+            </div>
+          ))}
+        </div>
       </div>
-      <div>
-        <button onClick={close}>Cancel</button>
-        <button
+      <div className={styles.buttons}>
+        <Button size={"small"} variant={"outlined"} onClick={close}>
+          <p>cancel</p>
+        </Button>
+        <LoadingButton
+          loading={isRequestPending}
+          size={"small"}
+          variant={"contained"}
           onClick={() => {
             updateTask(task, { ...updatedTask }, retrieveSession(sessionName));
             close();
           }}
         >
-          Update
-        </button>
+          <p>update</p>
+        </LoadingButton>
       </div>
     </div>
   );

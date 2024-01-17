@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import AddIcon from "@mui/icons-material/Add";
 
 import {
   useAllProjectListsRetrieval,
@@ -12,6 +13,7 @@ import { useWrapperContext } from "@app/wrapper/wrapper.tsx";
 import { List } from "./list";
 import { Props } from "./types.ts";
 import styles from "./styles.module.scss";
+import { Button } from "@mui/material";
 
 function Lists({ project, user }: Props) {
   const { t } = useTranslation();
@@ -50,13 +52,17 @@ function Lists({ project, user }: Props) {
 
   return (
     <div className={styles.lists}>
-      <button
-        onClick={() =>
-          pushView({ useCase: UseCases.CreateList, data: { user, project } })
-        }
-      >
-        {t("pages.home.createList")}
-      </button>
+      <div className={styles.createList}>
+        <Button
+          startIcon={<AddIcon />}
+          variant={"contained"}
+          onClick={() =>
+            pushView({ useCase: UseCases.CreateList, data: { user, project } })
+          }
+        >
+          {t("pages.home.createList")}
+        </Button>
+      </div>
       {!lists.length ? (
         <div>
           <p>{t("pages.home.noList")}</p>

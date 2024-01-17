@@ -2,6 +2,7 @@ import { Props } from "./types.ts";
 import styles from "@pages/settings/styles.module.scss";
 import {
   AppBar,
+  Avatar,
   IconButton,
   SwipeableDrawer,
   Toolbar,
@@ -10,15 +11,21 @@ import {
 import React from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { SideBar } from "src/client/components/sideBar";
+import { generateColorFromName } from "@utils/colorFromName.ts";
+import { useUserRetrieval } from "@core/viewModels";
+import { useNavigate } from "react-router-dom";
 
 type Anchor = "top" | "left" | "bottom" | "right";
 function TopBar({ title }: Props) {
+  const navigate = useNavigate();
   const [state, setState] = React.useState({
     top: false,
     left: false,
     bottom: false,
     right: false,
   });
+  const { user } = useUserRetrieval();
+  console.log(user);
 
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>
@@ -57,9 +64,28 @@ function TopBar({ title }: Props) {
         >
           <MenuIcon />
         </IconButton>
+        <div
+          style={{
+            width: "1rem",
+            height: "1rem",
+            backgroundColor: generateColorFromName(title),
+            borderRadius: "100px",
+            marginRight: "0.5rem",
+          }}
+        />
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           {title}
         </Typography>
+        <div onClick={() => navigate("/settings")}>
+          <Avatar
+            sx={{
+              bgcolor: generateColorFromName(user.email),
+              cursor: "pointer",
+            }}
+          >
+            {user.firstname[0] + user.lastname[0]}
+          </Avatar>
+        </div>
       </Toolbar>
     </AppBar>
   );

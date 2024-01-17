@@ -1,4 +1,16 @@
 import { useTranslation } from "react-i18next";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  IconButton,
+  Typography,
+} from "@mui/material";
+import { generateColorFromName } from "@utils/colorFromName.ts";
 
 import { useWrapperContext } from "@app/wrapper/wrapper.tsx";
 import { UseCases } from "@core/reducer/types.ts";
@@ -16,49 +28,68 @@ function List({ list, tasks }: Props) {
   const { lists } = useAllProjectListsRetrieval();
 
   return (
-    <div className={styles.list}>
+    <Card sx={{ minWidth: "20rem", width: 0 }} className={styles.card}>
       <div
-        className={styles.title}
-        onClick={() =>
-          pushView({ useCase: UseCases.UpdateList, data: { list } })
-        }
-      >
-        <p>{list.name}</p>
-      </div>
-      <div
-        className={styles.addTask}
-        onClick={() =>
-          pushView({ useCase: UseCases.CreateTask, data: { list, user } })
-        }
-      >
-        <p>+{t("pages.home.list.addTask")}</p>
-      </div>
-      <div className={styles.tasks}>
-        {tasks.map((task, key) => (
-          <div
-            key={key}
-            className={styles.task}
+        style={{
+          width: "100%",
+          height: "1rem",
+          backgroundColor: generateColorFromName(list.name),
+        }}
+      />
+      <CardContent>
+        <Typography
+          gutterBottom
+          variant="h5"
+          style={{ cursor: "pointer" }}
+          component="div"
+          onClick={() =>
+            pushView({ useCase: UseCases.UpdateList, data: { list } })
+          }
+        >
+          {list.name}
+        </Typography>
+        <CardActions>
+          <Button
+            startIcon={<AddIcon />}
+            variant={"contained"}
+            size="small"
             onClick={() =>
-              pushView({ useCase: UseCases.UpdateTask, data: { task, lists } })
+              pushView({ useCase: UseCases.CreateTask, data: { list, user } })
             }
           >
-            <p className={styles.name}>{task.name}</p>
-            <div
-              className={styles.iconTrash}
-              onClick={(e) => {
-                e.stopPropagation();
+            {t("pages.home.list.addTask")}
+          </Button>
+        </CardActions>
+        <div className={styles.tasks}>
+          {tasks.map((task, key) => (
+            <Box
+              key={key}
+              className={styles.task}
+              onClick={() =>
                 pushView({
-                  useCase: UseCases.DeleteTask,
-                  data: { task },
-                });
-              }}
+                  useCase: UseCases.UpdateTask,
+                  data: { task, lists },
+                })
+              }
             >
-              T
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+              <p className={styles.name}>{task.name}</p>
+              <IconButton
+                className={styles.iconTrash}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  pushView({
+                    useCase: UseCases.DeleteTask,
+                    data: { task },
+                  });
+                }}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Box>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
   );
 }
 
