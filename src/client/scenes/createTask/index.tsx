@@ -1,12 +1,14 @@
 import { useTranslation } from "react-i18next";
-import { Modal, ModalContent, ModalHeader } from "semantic-ui-react";
-
-import { Props } from "./types.ts";
+import { Button, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
+import LoadingButton from "@mui/lab/LoadingButton";
+
 import { initialTask } from "@core/dto";
 import { useTaskCreation, useUserToTaskLinkCreation } from "@core/viewModels";
 import { retrieveSession } from "@utils/sessions.ts";
 import { sessionName } from "@utils/constant.ts";
+import styles from "./styles.module.scss";
+import { Props } from "./types.ts";
 
 function CreateTask({ close, list, user }: Props) {
   const { t } = useTranslation();
@@ -31,30 +33,40 @@ function CreateTask({ close, list, user }: Props) {
   }, [isRequestSuccess]);
 
   return (
-    <Modal onClose={() => close()} open={true}>
-      <ModalHeader>{t("createTask.title")}</ModalHeader>
-      {isRequestPending ? (
-        <ModalContent>pending...</ModalContent>
-      ) : (
-        <ModalContent>
-          <input
-            defaultValue={task.name}
-            placeholder={"name"}
-            onChange={(e) => setTask({ ...task, name: e.target.value })}
-          />
-          <input
-            defaultValue={task.description}
-            placeholder={"description"}
-            onChange={(e) => setTask({ ...task, description: e.target.value })}
-          />
-          <button
-            onClick={() => createTask(task, retrieveSession(sessionName))}
-          >
-            Create task
-          </button>
-        </ModalContent>
-      )}
-    </Modal>
+    <div>
+      <Typography id="modal-modal-title" variant="h6" component="h2">
+        {t("createTask.title")}
+      </Typography>
+      <div className={styles.content}>
+        <TextField
+          id="outlined-basic"
+          label="name"
+          variant="outlined"
+          size={"small"}
+          onChange={(e) => setTask({ ...task, name: e.target.value })}
+        />
+        <TextField
+          id="outlined-basic"
+          label="description"
+          variant="outlined"
+          size={"small"}
+          onChange={(e) => setTask({ ...task, description: e.target.value })}
+        />
+      </div>
+      <div className={styles.buttons}>
+        <Button size={"small"} onClick={close}>
+          <p>cancel</p>
+        </Button>
+        <LoadingButton
+          loading={isRequestPending}
+          loadingPosition="start"
+          variant="contained"
+          onClick={() => createTask(task, retrieveSession(sessionName))}
+        >
+          Create task
+        </LoadingButton>
+      </div>
+    </div>
   );
 }
 

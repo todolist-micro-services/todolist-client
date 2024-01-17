@@ -1,18 +1,12 @@
-import {
-  Button,
-  Header,
-  Icon,
-  Modal,
-  ModalActions,
-  ModalContent,
-  ModalDescription,
-  ModalHeader,
-} from "semantic-ui-react";
-import { Props } from "./types.ts";
+import { useEffect } from "react";
+import { Button, Typography } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 import { useProjectRemoval } from "@core/viewModels";
 import { retrieveSession } from "@utils/sessions.ts";
 import { sessionName } from "@utils/constant.ts";
-import { useEffect } from "react";
+import { Props } from "./types.ts";
+import styles from "./styles.module.scss";
 
 function DeleteProject({ close, project }: Props) {
   const { deleteProject, isRequestSuccess } = useProjectRemoval();
@@ -22,28 +16,26 @@ function DeleteProject({ close, project }: Props) {
   }, [isRequestSuccess]);
 
   return (
-    <Modal onClose={() => close()} open={true}>
-      <ModalHeader>Delete project</ModalHeader>
-      <ModalContent image>
-        <ModalDescription>
-          <Header>{project.name}</Header>
-          <p>Are you sure you want to delete the project ?</p>
-        </ModalDescription>
-      </ModalContent>
-      <ModalActions>
-        <Button color="grey" onClick={close}>
-          <Icon name="remove" /> No
-        </Button>
+    <div>
+      <Typography id="modal-modal-title" variant="h6" component="h2">
+        Delete project: {project.name}
+      </Typography>
+      <div>
+        <p>Are you sure you want to delete this project ?</p>
+      </div>
+      <div className={styles.buttons}>
+        <Button onClick={close}>No</Button>
         <Button
-          color="red"
+          color={"error"}
+          startIcon={<DeleteIcon />}
           onClick={() =>
             deleteProject(project.id, retrieveSession(sessionName))
           }
         >
-          <Icon name="checkmark" /> Yes
+          Yes
         </Button>
-      </ModalActions>
-    </Modal>
+      </div>
+    </div>
   );
 }
 

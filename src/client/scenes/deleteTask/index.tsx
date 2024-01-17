@@ -1,38 +1,40 @@
 import { useTranslation } from "react-i18next";
-import {
-  Modal,
-  ModalActions,
-  ModalContent,
-  ModalHeader,
-} from "semantic-ui-react";
+import { Button, Typography } from "@mui/material";
 
-import { Props } from "./types.ts";
 import { useTaskRemoval } from "@core/viewModels";
 import { retrieveSession } from "@utils/sessions.ts";
 import { sessionName } from "@utils/constant.ts";
+import { Props } from "./types.ts";
+import styles from "./styles.module.scss";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 function DeleteTask({ close, task }: Props) {
   const { t } = useTranslation();
   const { deleteTask } = useTaskRemoval();
 
   return (
-    <Modal onClose={() => close()} open={true}>
-      <ModalHeader>{t("deleteTask.title")}</ModalHeader>
-      <ModalContent>
+    <div>
+      <Typography id="modal-modal-title" variant="h6" component="h2">
+        {t("deleteTask.title")}
+        {task.name}
+      </Typography>
+      <div>
         <p>Are you sur ? No going back</p>
-      </ModalContent>
-      <ModalActions>
-        <button onClick={close}>Cancel</button>
-        <button
+      </div>
+      <div className={styles.buttons}>
+        <Button onClick={close}>cancel</Button>
+        <Button
+          color={"error"}
+          startIcon={<DeleteIcon />}
           onClick={() => {
             deleteTask(task, retrieveSession(sessionName));
             close();
           }}
         >
-          Supprimer
-        </button>
-      </ModalActions>
-    </Modal>
+          delete
+        </Button>
+      </div>
+    </div>
   );
 }
 

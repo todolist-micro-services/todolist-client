@@ -1,10 +1,17 @@
 import { useEffect, useState } from "react";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router-dom";
-import { Button, Dropdown } from "semantic-ui-react";
+import { useNavigate } from "react-router-dom";
+import {
+  Button,
+  Divider,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 
-import { SideBar } from "@components/sideBar";
 import { removeSession, retrieveSession } from "@utils/sessions.ts";
 import { sessionName } from "@utils/constant.ts";
 import {
@@ -12,6 +19,7 @@ import {
   useUserRetrieval,
   useUserUpdate,
 } from "@core/viewModels";
+import { TopBar } from "@components/topBar";
 import styles from "./styles.module.scss";
 
 function Settings() {
@@ -22,10 +30,7 @@ function Settings() {
   const [lastname, setLastname] = useState(user.lastname);
   const { updateUser } = useUserUpdate();
   const { deleteUser } = useUserRemoval();
-  const countryOptions = [
-    { key: "fr", value: "fr", flag: "fr", text: "Français" },
-    { key: "en", value: "en", flag: "uk", text: "English" },
-  ];
+  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
 
   const changeLanguage = (language: string) => {
     i18n.changeLanguage(language).then();
@@ -61,45 +66,61 @@ function Settings() {
 
   return (
     <div className={styles.settings}>
-      <SideBar
-        children={
-          <div>
-            <p>{t("pages.settings.title")}</p>
-            <input
-              placeholder={t("pages.settings.placeholder.firstname")}
-              value={firstname}
-              type={"firstname"}
-              onChange={(e) => setFirstname(e.target.value)}
-            />
-            <input
-              placeholder={t("pages.settings.placeholder.lastname")}
-              value={lastname}
-              type={"lastname"}
-              onChange={(e) => setLastname(e.target.value)}
-            />
-            <Button onClick={updateUserCta}>
-              <p>{t("pages.settings.update")}</p>
-            </Button>
-            <Link to={`/home`}>{t("pages.settings.redirect")}</Link>
-            <Button onClick={disconnect}>
-              <p>{t("pages.settings.disconnect")}</p>
-            </Button>
-            <Button onClick={deleteAccount}>
-              <p>{t("pages.settings.delete")}</p>
-            </Button>
-            <Dropdown
-              placeholder={t("pages.settings.placeholder.language")}
-              fluid
-              search
-              selection
-              onChange={(_, { value }) => {
-                changeLanguage(typeof value === "string" ? value : "");
-              }}
-              options={countryOptions}
-            />
-          </div>
-        }
-      />
+      <TopBar title={t("pages.settings.title")} />
+      <FormControl fullWidth className={styles.languageSelector}>
+        <InputLabel id="demo-simple-select-label">
+          {t("pages.settings.selectLanguage")}
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={selectedLanguage}
+          onChange={(event) => {
+            changeLanguage(event.target.value);
+            setSelectedLanguage(event.target.value);
+          }}
+        >
+          <MenuItem value={"fr"}>Français</MenuItem>
+          <MenuItem value={"en"}>English</MenuItem>
+        </Select>
+      </FormControl>
+      <Divider />
+      <div className={styles.updateAccountForm}>
+        <TextField
+          id="outlined-basic"
+          value={firstname}
+          placeholder={t("pages.settings.placeholder.firstname")}
+          onChange={(e) => setFirstname(e.target.value)}
+          variant="outlined"
+        />
+        <TextField
+          id="outlined-basic"
+          value={lastname}
+          placeholder={t("pages.settings.placeholder.lastname")}
+          onChange={(e) => setLastname(e.target.value)}
+          variant="outlined"
+        />
+        <Button size="small" variant={"contained"} onClick={updateUserCta}>
+          <p>{t("pages.settings.update")}</p>
+        </Button>
+      </div>
+      <Divider />
+      <div className={styles.buttons}>
+        <Button onClick={() => navigate("/home")}>
+          {t("pages.settings.redirect")}
+        </Button>
+        <Button onClick={disconnect}>
+          <p>{t("pages.settings.disconnect")}</p>
+        </Button>
+        <Button
+          size="small"
+          variant="outlined"
+          color="error"
+          onClick={deleteAccount}
+        >
+          <p>{t("pages.settings.delete")}</p>
+        </Button>
+      </div>
     </div>
   );
 }

@@ -1,12 +1,17 @@
-import { SideBarContent } from "./sideBarContent";
-import { Props } from "./types.ts";
+import { Settings } from "./settings";
+import { Title } from "./title";
+import { Projects } from "./projects";
+import { Divider } from "@mui/material";
 import styles from "./styles.module.scss";
 
-function SideBar({ children }: Props) {
+function SideBar() {
   return (
     <div className={styles.sideBar}>
-      <SideBarContent />
-      <div className={styles.content}>{children}</div>
+      <Title />
+      <Divider />
+      <Projects />
+      <Divider />
+      <Settings />
     </div>
   );
 }

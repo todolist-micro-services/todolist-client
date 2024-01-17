@@ -11,6 +11,12 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource/roboto": "^5.0.8",
+    "@mui/icons-material": "^5.15.4",
+    "@mui/lab": "^5.0.0-alpha.160",
+    "@mui/material": "^5.15.4",
     "@reduxjs/toolkit": "^2.0.1",
     "axios": "^1.6.5",
     "classnames": "^2.5.1",
@@ -24,14 +30,10 @@
     "react-redux": "^9.0.4",
     "react-router-dom": "^6.21.1",
     "sass": "^1.69.5",
-    "semantic-ui-css": "^2.5.0",
-    "semantic-ui-less": "^2.5.0",
-    "semantic-ui-react": "^2.1.5",
     "vite-tsconfig-paths": "^4.2.0"
   },
   "devDependencies": {
     "@craco/craco": "^7.1.0",
-    "@semantic-ui-react/craco-less": "^3.0.0",
     "@types/jest": "^29.5.11",
     "@types/node": "^20.10.5",
     "@types/react": "^18.2.43",

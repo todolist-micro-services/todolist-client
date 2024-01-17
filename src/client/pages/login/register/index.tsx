@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Input } from "semantic-ui-react";
 import { useTranslation } from "react-i18next";
+import { Button, Input } from "@mui/material";
 
 import { useRegister } from "@core/viewModels";
 import styles from "./styles.module.scss";

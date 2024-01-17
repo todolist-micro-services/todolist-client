@@ -22,11 +22,13 @@ function Projects() {
     <div className={styles.projects}>
       <CreateProject />
       {isRequestPending && <ProjectSkeleton />}
-      {projects.map((project, key) => (
-        <div key={key}>
-          <Project project={project} />
-        </div>
-      ))}
+      <div className={styles.projectList}>
+        {projects.map((project, key) => (
+          <div key={key}>
+            <Project project={project} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
