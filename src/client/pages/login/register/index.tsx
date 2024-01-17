@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Button, Input } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 
 import { useRegister } from "@core/viewModels";
 import styles from "./styles.module.scss";
@@ -32,35 +32,46 @@ function Register() {
   return (
     <div className={styles.register}>
       <p>{t("pages.login.register")}</p>
-      <Input
-        placeholder={t("pages.login.placeholder.firstname")}
-        type={"firstname"}
-        onChange={(e) => setFirstname(e.target.value)}
-      />
-      <Input
-        placeholder={t("pages.login.placeholder.lastname")}
-        type={"lastname"}
-        onChange={(e) => setLastname(e.target.value)}
-      />
-      <Input
-        placeholder={t("pages.login.placeholder.email")}
-        type={"Email"}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <Input
-        placeholder={t("pages.login.placeholder.password")}
-        type={"password"}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <Input
-        placeholder={t("pages.login.placeholder.passwordConfirm")}
-        type={"password"}
-        onChange={(e) => setPasswordConfirmation(e.target.value)}
-      />
-      <Button
-        content={t("pages.login.confirm")}
-        onClick={() => registerCta()}
-      />
+      <div className={styles.inputs}>
+        <TextField
+          id="outlined-basic"
+          label={t("pages.login.placeholder.firstname")}
+          variant="outlined"
+          type={"name"}
+          onChange={(e) => setFirstname(e.target.value)}
+        />
+        <TextField
+          id="outlined-basic"
+          label={t("pages.login.placeholder.lastname")}
+          variant="outlined"
+          type={"name"}
+          onChange={(e) => setLastname(e.target.value)}
+        />
+        <TextField
+          id="outlined-basic"
+          label={t("pages.login.placeholder.email")}
+          variant="outlined"
+          type={"email"}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <TextField
+          id="outlined-basic"
+          label={t("pages.login.placeholder.password")}
+          variant="outlined"
+          type={"password"}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <TextField
+          id="outlined-basic"
+          label={t("pages.login.placeholder.passwordConfirm")}
+          variant="outlined"
+          type={"password"}
+          onChange={(e) => setPasswordConfirmation(e.target.value)}
+        />
+      </div>
+      <Button variant={"contained"} onClick={() => registerCta()}>
+        {t("pages.login.confirm")}
+      </Button>
     </div>
   );
 }

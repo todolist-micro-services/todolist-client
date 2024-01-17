@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useUserRetrieval } from "@core/viewModels";
 import styles from "./index.module.scss";
+import { Button } from "@mui/material";
 
 function Landing() {
   const navigate = useNavigate();
@@ -24,11 +25,14 @@ function Landing() {
 
   return (
     <div className={styles.landing}>
-      <p>{t("title")}</p>
-      <p>{t("description")}</p>
-      <button className={"ui button"} onClick={() => redirect()}>
+      <div className={styles.title}>
+        <h1>{t("title")}</h1>
+        <h2>{t("description")}</h2>
+        <h2>delgadopierrealexandre@gmail.com</h2>
+      </div>
+      <Button variant={"contained"} onClick={() => redirect()}>
         <p>{t("pages.landing.login")}</p>
-      </button>
+      </Button>
     </div>
   );
 }

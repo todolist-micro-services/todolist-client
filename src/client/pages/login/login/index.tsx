@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Button, Input } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 
 import { useLogin } from "@core/viewModels";
 import styles from "./styles.module.scss";
@@ -24,17 +24,25 @@ function Login() {
   return (
     <div className={styles.login}>
       <p>{t("pages.login.login")}</p>
-      <Input
-        placeholder={t("pages.login.placeholder.email")}
-        type={"email"}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <Input
-        placeholder={t("pages.login.placeholder.password")}
-        type={"password"}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <Button content={t("pages.login.confirm")} onClick={() => loginCta()} />
+      <div className={styles.inputs}>
+        <TextField
+          id="outlined-basic"
+          label={t("pages.login.placeholder.email")}
+          variant="outlined"
+          type={"email"}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <TextField
+          id="outlined-basic"
+          label={t("pages.login.placeholder.password")}
+          variant="outlined"
+          type={"password"}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
+      <Button variant={"contained"} onClick={() => loginCta()}>
+        {t("pages.login.confirm")}
+      </Button>
     </div>
   );
 }
