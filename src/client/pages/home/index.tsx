@@ -1,79 +1,71 @@
-import { useEffect, useState } from "react";
-import { Button, ButtonGroup, ButtonOr } from "semantic-ui-react";
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import AddIcon from "@mui/icons-material/Add";
+import { Button } from "@mui/material";
 
-import { SideBar } from "@components/sideBar";
-import { retrieveSession } from "@utils/sessions.ts";
-import { sessionName } from "@utils/constant.ts";
-import { useUserRetrieval } from "@core/viewModels";
+import { storedProject } from "@utils/constant.ts";
+import { useAllProjectsRetrieval, useUserRetrieval } from "@core/viewModels";
+import { useProjectContext } from "@app/context/project.tsx";
+import { retrieveData } from "@utils/storeData.ts";
+import { useWrapperContext } from "@app/wrapper/wrapper.tsx";
+import { UseCases } from "@core/reducer/types.ts";
+import { initialProject } from "@core/dto";
+import { Lists } from "./lists";
 import styles from "./styles.module.scss";
+import { TopBar } from "@components/topBar";
 
 function Home() {
-  const [displayTask, setDisplayTask] = useState(true);
-  const [displayTimeline, setDisplayTimeline] = useState(false);
-  const [displayGlobalTimeline, setDisplayGlobalTimeline] = useState(false);
-  const { retrieveUser, isRequestSuccess } = useUserRetrieval();
+  const { t } = useTranslation();
+  const { user } = useUserRetrieval();
+  const { project, setContextProject } = useProjectContext();
+  const { pushView } = useWrapperContext();
+  const { projects, isRequestSuccess: retrieveAllProjects } =
+    useAllProjectsRetrieval();
+  const selectedProject = retrieveData(storedProject);
+
+  if (!selectedProject?.length && projects.length) {
+    setContextProject(projects[0]);
+  }
 
   useEffect(() => {
-    !isRequestSuccess && retrieveUser(retrieveSession(sessionName));
-  }, []);
+    retrieveAllProjects &&
+      selectedProject &&
+      projects.length &&
+      setContextProject(
+        projects.filter((data) => data.id === +selectedProject)[0]
+      );
+  }, [retrieveAllProjects, projects, selectedProject, setContextProject]);
 
   return (
     <div className={styles.home}>
-      <SideBar
-        children={
-          <div>
-            <ButtonGroup>
-              <Button
-                onClick={() => {
-                  setDisplayTask(true);
-                  setDisplayTimeline(false);
-                  setDisplayGlobalTimeline(false);
-                }}
-                positive={displayTask}
-              >
-                List/tasks
-              </Button>
-              <ButtonOr />
-              <Button
-                onClick={() => {
-                  setDisplayTask(false);
-                  setDisplayTimeline(true);
-                  setDisplayGlobalTimeline(false);
-                }}
-                positive={displayTimeline}
-              >
-                Timelines (task+event)
-              </Button>
-              <ButtonOr />
-              <Button
-                onClick={() => {
-                  setDisplayTask(false);
-                  setDisplayTimeline(false);
-                  setDisplayGlobalTimeline(true);
-                }}
-                positive={displayGlobalTimeline}
-              >
-                Global timeline
-              </Button>
-            </ButtonGroup>
-            {displayTask && (
-              <div>
-                <p>Display all list/task of the selected project</p>
-              </div>
-            )}
-            {displayTimeline && (
-              <div>
-                <p>Display timeline of the selected project</p>
-              </div>
-            )}
-            {displayGlobalTimeline && (
-              <div>
-                <p>Display timeline of all projects</p>
-              </div>
-            )}
-          </div>
-        }
-      />
+      <TopBar title={project?.name ?? t("pages.home.noProjectSelected")} />
+      {!projects.length ? (
+        <div className={styles.noProjects}>
+          <p>{t("pages.home.noProjects")}</p>
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={() =>
+              pushView({ useCase: UseCases.CreateProject, data: {} })
+            }
+          >
+            {t("pages.home.createProject")}
+          </Button>
+        </div>
+      ) : (
+        <div className={styles.content}>
+          {!retrieveAllProjects ? (
+            <div>
+              <p>{t("pages.home.requestPending")}</p>
+            </div>
+          ) : (
+            <Lists
+              project={project ?? { ...initialProject, id: 0 }}
+              user={user}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 }

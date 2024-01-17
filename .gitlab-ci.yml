@@ -5,7 +5,7 @@ ci:
     include:
       - project: 'todolist-micro-services/pipeline'
         ref: 'master'
-        file: 'client/react.yml'
+        file: 'src/react.yml'
     strategy: depend
   rules:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'

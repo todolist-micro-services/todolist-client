@@ -1,0 +1,53 @@
+.project {
+  width: 87%;
+  overflow: hidden;
+  padding: 0.5rem 0.5rem;
+  cursor: pointer;
+  display: inline-flex;
+
+  &:hover {
+
+    & > .iconBox {
+      visibility: visible;
+    }
+  }
+}
+
+.isSelected {
+  text-decoration: underline;
+}
+
+.nameBox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 86%;
+  gap: 0.5rem;
+}
+
+.name {
+  font-weight: bold;
+  text-transform: uppercase;
+  color: black;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 90%;
+  margin: 0;
+}
+
+.iconBox {
+  display: flex;
+  visibility: hidden;
+  align-items: center;
+  justify-content: center;
+  width: 5%;
+}
+
+.iconInfo:hover {
+  color: blue;
+}
+
+.iconTrash:hover {
+  color: red;
+}

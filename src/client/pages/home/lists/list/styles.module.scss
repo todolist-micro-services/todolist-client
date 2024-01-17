@@ -1,0 +1,47 @@
+.card {
+  height: 100%;
+}
+
+.tasks {
+  overflow-y: auto;
+  max-width: 100%;
+  height: 30rem;
+  max-height: 2%;
+}
+
+.task {
+  cursor: pointer;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  max-width: 90%;
+  background-color: whitesmoke;
+  border-radius: 4px;
+  margin: 0.5rem 0;
+
+  &:hover {
+    & > .iconTrash {
+      visibility: visible;
+    }
+  }
+}
+
+.iconTrash {
+  visibility: hidden;
+
+  &:hover {
+    color: red;
+  }
+}
+
+.name {
+  display: flex;
+  align-items: start;
+  justify-content: flex-start;
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

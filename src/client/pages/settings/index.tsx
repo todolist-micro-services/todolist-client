@@ -1,8 +1,17 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Button } from "semantic-ui-react";
+import i18n from "i18next";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import {
+  Button,
+  Divider,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 
-import { SideBar } from "@components/sideBar";
 import { removeSession, retrieveSession } from "@utils/sessions.ts";
 import { sessionName } from "@utils/constant.ts";
 import {
@@ -10,20 +19,22 @@ import {
   useUserRetrieval,
   useUserUpdate,
 } from "@core/viewModels";
+import { TopBar } from "@components/topBar";
 import styles from "./styles.module.scss";
 
 function Settings() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
-  const { retrieveUser, isRequestSuccess, user } = useUserRetrieval();
+  const { isRequestSuccess, user } = useUserRetrieval();
   const [firstname, setFirstname] = useState(user.firstname);
   const [lastname, setLastname] = useState(user.lastname);
   const { updateUser } = useUserUpdate();
-  const {
-    deleteUser,
-    isRequestSuccess: removalSuccess,
-    isRequestFailure,
-    isRequestPending,
-  } = useUserRemoval();
+  const { deleteUser } = useUserRemoval();
+  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
+
+  const changeLanguage = (language: string) => {
+    i18n.changeLanguage(language).then();
+  };
 
   const disconnect = () => {
     removeSession(sessionName);
@@ -43,48 +54,73 @@ function Settings() {
   };
 
   useEffect(() => {
-    !isRequestSuccess && retrieveUser(retrieveSession(sessionName));
-  }, []);
-
-  useEffect(() => {
     isRequestSuccess && setFirstname(user.firstname);
     isRequestSuccess && setLastname(user.lastname);
-  }, [isRequestSuccess]);
+  }, [
+    isRequestSuccess,
+    setLastname,
+    setFirstname,
+    user.firstname,
+    user.lastname,
+  ]);
 
   return (
     <div className={styles.settings}>
-      <SideBar
-        children={
-          <div>
-            <p>Settings page</p>
-            <input
-              placeholder={"firstname"}
-              value={firstname}
-              type={"firstname"}
-              onChange={(e) => setFirstname(e.target.value)}
-            />
-            <input
-              placeholder={"lastname"}
-              value={lastname}
-              type={"lastname"}
-              onChange={(e) => setLastname(e.target.value)}
-            />
-            <Button onClick={updateUserCta}>
-              <p>Update user</p>
-            </Button>
-            <Link to={`/home`}>home page</Link>
-            <Button onClick={disconnect}>
-              <p>Disconnection</p>
-            </Button>
-            {isRequestPending && <p>pending</p>}
-            {isRequestFailure && <p>pending</p>}
-            {removalSuccess && <p>pending</p>}
-            <Button onClick={deleteAccount}>
-              <p>Delete account</p>
-            </Button>
-          </div>
-        }
-      />
+      <TopBar title={t("pages.settings.title")} />
+      <FormControl fullWidth className={styles.languageSelector}>
+        <InputLabel id="demo-simple-select-label">
+          {t("pages.settings.selectLanguage")}
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={selectedLanguage}
+          onChange={(event) => {
+            changeLanguage(event.target.value);
+            setSelectedLanguage(event.target.value);
+          }}
+        >
+          <MenuItem value={"fr"}>Français</MenuItem>
+          <MenuItem value={"en"}>English</MenuItem>
+        </Select>
+      </FormControl>
+      <Divider />
+      <div className={styles.updateAccountForm}>
+        <TextField
+          id="outlined-basic"
+          value={firstname}
+          placeholder={t("pages.settings.placeholder.firstname")}
+          onChange={(e) => setFirstname(e.target.value)}
+          variant="outlined"
+        />
+        <TextField
+          id="outlined-basic"
+          value={lastname}
+          placeholder={t("pages.settings.placeholder.lastname")}
+          onChange={(e) => setLastname(e.target.value)}
+          variant="outlined"
+        />
+        <Button size="small" variant={"contained"} onClick={updateUserCta}>
+          <p>{t("pages.settings.update")}</p>
+        </Button>
+      </div>
+      <Divider />
+      <div className={styles.buttons}>
+        <Button onClick={() => navigate("/home")}>
+          {t("pages.settings.redirect")}
+        </Button>
+        <Button onClick={disconnect}>
+          <p>{t("pages.settings.disconnect")}</p>
+        </Button>
+        <Button
+          size="small"
+          variant="outlined"
+          color="error"
+          onClick={deleteAccount}
+        >
+          <p>{t("pages.settings.delete")}</p>
+        </Button>
+      </div>
     </div>
   );
 }
