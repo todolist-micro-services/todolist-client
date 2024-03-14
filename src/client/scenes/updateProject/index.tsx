@@ -7,8 +7,10 @@ import { sessionName } from "@utils/constant.ts";
 import { Props } from "./types.ts";
 import styles from "./styles.module.scss";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { useTranslation } from "react-i18next";
 
 function UpdateProject({ close, project }: Props) {
+  const { t } = useTranslation();
   const [newProject, setNewProject] = useState(project);
   const { updateProject, isRequestSuccess, isRequestPending } =
     useProjectUpdate();
@@ -20,7 +22,7 @@ function UpdateProject({ close, project }: Props) {
   return (
     <div>
       <Typography id="modal-modal-title" variant="h6" component="h2">
-        Update project: {project.name}
+        {t("updateProject.title")} {project.name}
       </Typography>
       <div className={styles.content}>
         <TextField
@@ -40,7 +42,7 @@ function UpdateProject({ close, project }: Props) {
       </div>
       <div className={styles.buttons}>
         <Button size={"small"} variant={"outlined"} onClick={close}>
-          <p>cancel</p>
+          <p>{t("updateProject.cancel")}</p>
         </Button>
         <LoadingButton
           loading={isRequestPending}
@@ -54,7 +56,7 @@ function UpdateProject({ close, project }: Props) {
             )
           }
         >
-          <p>update project</p>
+          <p>{t("updateProject.update")}</p>
         </LoadingButton>
       </div>
     </div>

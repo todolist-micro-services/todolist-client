@@ -14,15 +14,20 @@ function DeleteTask({ close, task }: Props) {
 
   return (
     <div>
-      <Typography id="modal-modal-title" variant="h6" component="h2">
+      <Typography
+        id="modal-modal-title"
+        variant="h6"
+        component="h2"
+        color={"#000000"}
+      >
         {t("deleteTask.title")}
         {task.name}
       </Typography>
       <div>
-        <p>Are you sur ? No going back</p>
+        <p className={styles.confirmation}>{t("deleteTask.confirmation")}</p>
       </div>
       <div className={styles.buttons}>
-        <Button onClick={close}>cancel</Button>
+        <Button onClick={close}>{t("deleteTask.cancel")}</Button>
         <Button
           color={"error"}
           startIcon={<DeleteIcon />}
@@ -31,7 +36,7 @@ function DeleteTask({ close, task }: Props) {
             close();
           }}
         >
-          delete
+          {t("deleteTask.delete")}
         </Button>
       </div>
     </div>

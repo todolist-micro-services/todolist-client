@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 
 import { removeSession, retrieveSession } from "@utils/sessions.ts";
-import { sessionName } from "@utils/constant.ts";
+import { appLanguage, sessionName } from "@utils/constant.ts";
 import {
   useUserRemoval,
   useUserRetrieval,
@@ -21,6 +21,7 @@ import {
 } from "@core/viewModels";
 import { TopBar } from "@components/topBar";
 import styles from "./styles.module.scss";
+import { storeData } from "@utils/storeData.ts";
 
 function Settings() {
   const { t } = useTranslation();
@@ -33,6 +34,7 @@ function Settings() {
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
 
   const changeLanguage = (language: string) => {
+    storeData(appLanguage, language);
     i18n.changeLanguage(language).then();
   };
 

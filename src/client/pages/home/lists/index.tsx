@@ -50,6 +50,15 @@ function Lists({ project, user }: Props) {
     tasksSuccess,
   ]);
 
+  useEffect(() => {
+    project.id &&
+      !allListsPending &&
+      retrieveAllProjectLists(project, retrieveSession(sessionName));
+    project.id &&
+      !taskPending &&
+      retrieveProjectTasks(project, retrieveSession(sessionName));
+  }, [project]);
+
   return (
     <div className={styles.lists}>
       <div className={styles.createList}>

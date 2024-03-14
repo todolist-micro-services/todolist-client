@@ -23,7 +23,7 @@
   margin-right: 2rem;
   display: flex;
   flex-direction: column;
-  height: 4rem;
+  height: 10rem;
   overflow-x: unset;
   overflow-y: scroll;
 }
@@ -31,4 +31,8 @@
 .list {
   display: inline-flex;
   gap: 1rem;
+}
+
+.listName {
+  color: #000000;
 }

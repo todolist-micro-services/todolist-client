@@ -25,7 +25,6 @@ function TopBar({ title }: Props) {
     right: false,
   });
   const { user } = useUserRetrieval();
-  console.log(user);
 
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>
@@ -83,7 +82,9 @@ function TopBar({ title }: Props) {
               cursor: "pointer",
             }}
           >
-            {user.firstname[0] + user.lastname[0]}
+            {user.firstname === ""
+              ? "AN"
+              : user.firstname[0] + user.lastname[0]}
           </Avatar>
         </div>
       </Toolbar>

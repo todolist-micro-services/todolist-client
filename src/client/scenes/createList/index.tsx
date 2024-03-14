@@ -56,7 +56,7 @@ function CreateList({ user, project, close }: Props) {
       </div>
       <div className={styles.buttons}>
         <Button size={"small"} onClick={close}>
-          <p>cancel</p>
+          <p>{t("createList.cancel")}</p>
         </Button>
         <LoadingButton
           loading={isRequestPending}

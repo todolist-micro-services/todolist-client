@@ -34,7 +34,12 @@ function CreateTask({ close, list, user }: Props) {
 
   return (
     <div>
-      <Typography id="modal-modal-title" variant="h6" component="h2">
+      <Typography
+        id="modal-modal-title"
+        variant="h6"
+        component="h2"
+        color={"#000000"}
+      >
         {t("createTask.title")}
       </Typography>
       <div className={styles.content}>
@@ -55,7 +60,7 @@ function CreateTask({ close, list, user }: Props) {
       </div>
       <div className={styles.buttons}>
         <Button size={"small"} onClick={close}>
-          <p>cancel</p>
+          <p>{t("createTask.cancel")}</p>
         </Button>
         <LoadingButton
           loading={isRequestPending}
@@ -63,7 +68,7 @@ function CreateTask({ close, list, user }: Props) {
           variant="contained"
           onClick={() => createTask(task, retrieveSession(sessionName))}
         >
-          Create task
+          {t("createTask.create")}
         </LoadingButton>
       </div>
     </div>

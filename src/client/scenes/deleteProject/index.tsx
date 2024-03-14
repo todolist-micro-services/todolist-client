@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Button, Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -9,6 +10,7 @@ import { Props } from "./types.ts";
 import styles from "./styles.module.scss";
 
 function DeleteProject({ close, project }: Props) {
+  const { t } = useTranslation();
   const { deleteProject, isRequestSuccess } = useProjectRemoval();
 
   useEffect(() => {
@@ -18,13 +20,13 @@ function DeleteProject({ close, project }: Props) {
   return (
     <div>
       <Typography id="modal-modal-title" variant="h6" component="h2">
-        Delete project: {project.name}
+        {t("deleteProject.title")} {project.name}
       </Typography>
       <div>
-        <p>Are you sure you want to delete this project ?</p>
+        <p>{t("deleteProject.confirmation")}</p>
       </div>
       <div className={styles.buttons}>
-        <Button onClick={close}>No</Button>
+        <Button onClick={close}>{t("deleteProject.cancel")}</Button>
         <Button
           color={"error"}
           startIcon={<DeleteIcon />}
@@ -32,7 +34,7 @@ function DeleteProject({ close, project }: Props) {
             deleteProject(project.id, retrieveSession(sessionName))
           }
         >
-          Yes
+          {t("deleteProject.delete")}
         </Button>
       </div>
     </div>

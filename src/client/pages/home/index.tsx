@@ -10,9 +10,9 @@ import { retrieveData } from "@utils/storeData.ts";
 import { useWrapperContext } from "@app/wrapper/wrapper.tsx";
 import { UseCases } from "@core/reducer/types.ts";
 import { initialProject } from "@core/dto";
+import { TopBar } from "@components/topBar";
 import { Lists } from "./lists";
 import styles from "./styles.module.scss";
-import { TopBar } from "@components/topBar";
 
 function Home() {
   const { t } = useTranslation();

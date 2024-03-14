@@ -16,7 +16,12 @@ function UpdateTask({ close, task, lists }: Props) {
 
   return (
     <div>
-      <Typography id="modal-modal-title" variant="h6" component="h2">
+      <Typography
+        id="modal-modal-title"
+        variant="h6"
+        component="h2"
+        color={"#000000"}
+      >
         {t("updateTask.title")}
         {task.name}
       </Typography>
@@ -31,13 +36,20 @@ function UpdateTask({ close, task, lists }: Props) {
           />
           <TextField
             label="description"
-            defaultValue={updatedTask.name}
+            defaultValue={updatedTask.description}
             onChange={(e) =>
               setUpdatedTask({ ...updatedTask, description: e.target.value })
             }
           />
         </div>
-        <p>Select one list</p>
+        <Typography
+          id="modal-modal-title"
+          variant="h6"
+          component="p"
+          color={"#000000"}
+        >
+          {t("updateTask.changeList")}
+        </Typography>
         <div className={styles.selectList}>
           {lists.map((list, key) => (
             <div className={styles.list} key={key}>
@@ -47,14 +59,14 @@ function UpdateTask({ close, task, lists }: Props) {
                   setUpdatedTask({ ...updatedTask, list });
                 }}
               />
-              <p>{list.name}</p>
+              <p className={styles.listName}>{list.name}</p>
             </div>
           ))}
         </div>
       </div>
       <div className={styles.buttons}>
         <Button size={"small"} variant={"outlined"} onClick={close}>
-          <p>cancel</p>
+          <p>{t("updateTask.cancel")}</p>
         </Button>
         <LoadingButton
           loading={isRequestPending}
@@ -65,7 +77,7 @@ function UpdateTask({ close, task, lists }: Props) {
             close();
           }}
         >
-          <p>update</p>
+          <p>{t("updateTask.update")}</p>
         </LoadingButton>
       </div>
     </div>

@@ -5,8 +5,11 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import fr from "@core/translations/fr.json";
 import en from "@core/translations/en.json";
 import { Language } from "@core/translations/languages.ts";
+import { retrieveData } from "@utils/storeData.ts";
+import { appLanguage } from "@utils/constant.ts";
 
-const defaultLanguage = Language.EN;
+const savedLanguage = retrieveData(appLanguage);
+const defaultLanguage = savedLanguage ? savedLanguage : Language.EN;
 
 const resources = {
   en: {
