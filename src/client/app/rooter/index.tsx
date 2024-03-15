@@ -10,6 +10,7 @@ import styles from "./styles.module.scss";
 import { useLogin, useRegister, useUserRetrieval } from "@core/viewModels";
 import { removeSession, retrieveSession, setSession } from "@utils/sessions.ts";
 import { sessionName } from "@utils/constant.ts";
+import { AccountConfirmation } from "@pages/accountConfirmation";
 
 const publicRouter = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const publicRouter = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/accountConfirmation",
+    element: <AccountConfirmation />,
   },
 ]);
 

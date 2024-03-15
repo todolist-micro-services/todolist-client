@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button, TextField, Typography } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
+import SaveIcon from "@mui/icons-material/Save";
 
 import { List } from "@core/dto";
 import { useListCreation, useUserToListLinkCreation } from "@core/viewModels";
@@ -59,6 +60,7 @@ function CreateList({ user, project, close }: Props) {
           <p>{t("createList.cancel")}</p>
         </Button>
         <LoadingButton
+          startIcon={<SaveIcon />}
           loading={isRequestPending}
           loadingPosition="start"
           variant="contained"

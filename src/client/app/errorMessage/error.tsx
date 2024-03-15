@@ -7,7 +7,9 @@ function Error() {
   const errorMessage = useAppSelector((state) => state.error);
 
   React.useEffect(() => {
-    errorMessage.errorMessage && sendErrorMessage(errorMessage.errorMessage);
+    errorMessage.errorMessage &&
+      window.location.pathname !== "/" &&
+      sendErrorMessage(errorMessage.errorMessage);
   }, [errorMessage.id]);
 
   return <div />;

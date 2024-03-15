@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Button, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
+import SaveIcon from "@mui/icons-material/Save";
 
 import { initialTask } from "@core/dto";
 import { useTaskCreation, useUserToTaskLinkCreation } from "@core/viewModels";
@@ -64,6 +65,7 @@ function CreateTask({ close, list, user }: Props) {
         </Button>
         <LoadingButton
           loading={isRequestPending}
+          startIcon={<SaveIcon />}
           loadingPosition="start"
           variant="contained"
           onClick={() => createTask(task, retrieveSession(sessionName))}

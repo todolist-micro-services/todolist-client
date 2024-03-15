@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, TextField, Typography } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useTranslation } from "react-i18next";
+import SaveIcon from "@mui/icons-material/Save";
 
 import {
   useProjectCreation,
@@ -65,6 +66,7 @@ function CreateProject({ close }: Props) {
           <p>{t("createProject.cancel")}</p>
         </Button>
         <LoadingButton
+          startIcon={<SaveIcon />}
           loading={isRequestPending}
           loadingPosition="start"
           variant="contained"

@@ -25,8 +25,7 @@ function Register() {
   };
 
   React.useEffect(() => {
-    isRequestSuccess && navigate("/home");
-    isRequestSuccess && window.location.reload();
+    isRequestSuccess && navigate("/accountConfirmation");
   }, [isRequestSuccess, navigate]);
 
   return (
